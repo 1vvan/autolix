@@ -36,7 +36,7 @@ export const Header = () => {
 
   return (
     <header
-      className={clsx("fixed z-50 header h-20 flex flex-row items-center justify-center", {
+      className={clsx("fixed z-50 header h-20 flex flex-row items-center justify-center bg-white dark:bg-dark-bg", {
         [styles["header--open"]]: isMenuOpen,
       })}
     >

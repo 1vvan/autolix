@@ -15,6 +15,8 @@ export interface ICar {
     price: number | string;
     status_id: number;
     created_at: string;
+    image_path: string;
+    horse_power: number | string;
 }
 
 export interface LoginDTO {
@@ -42,4 +44,47 @@ export interface IAccountSettings {
 export interface RequestUpdateUserData {
   userId: number;
   data: IAccountSettings;
+}
+
+interface Timestamped {
+  created_at: string;
+}
+
+interface FuelType extends Timestamped {
+  id: number;
+  name: string;
+}
+
+interface EngineType extends Timestamped {
+  id: number;
+  name: string;
+}
+
+interface StatusType extends Timestamped {
+  id: number;
+  name: string;
+}
+
+interface GearboxType extends Timestamped {
+  id: number;
+  name: string;
+}
+
+interface DriveUnitType extends Timestamped {
+  id: number;
+  name: string;
+}
+
+interface PaymentMethod extends Timestamped {
+  id: number;
+  name: string;
+}
+
+export interface AllTypes {
+  fuelTypes: FuelType[];
+  engineTypes: EngineType[];
+  statusTypes: StatusType[];
+  gearboxTypes: GearboxType[];
+  driveUnitTypes: DriveUnitType[];
+  paymentMethods: PaymentMethod[];
 }

@@ -1,14 +1,10 @@
 export const HeaderMenu = [
     {
         path: '/',
-        label: 'Home'
+        label: 'Cars'
     },
     {
-        path: '/',
-        label: 'Buy'
-    },
-    {
-        path: '/',
+        path: '/clients',
         label: 'Clients'
     },
 ]
