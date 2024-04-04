@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { clsx } from 'clsx';
-import { Switcher } from "../../UI/switcher/switcher";
+import { Switcher } from "../../shared/UI/switcher/switcher";
 import styles from './header.module.scss'
-import { useTheme } from "../theme-context/theme-context";
+import { useTheme } from "../../shared/theme-context/theme-context";
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { HeaderMenu } from '@/shared/constants/header-menu';
 import { ROUTES } from "@/shared/constants/routes";
 import headerIconLight from '@icons/logo-light.svg'
 import headerIconDark from '@icons/logo-dark.svg'
+import { Icon } from "@/shared/components/icon/icon";
+import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
+import { logout, useIsAdmin } from "@/shared/helpers/authHelpers";
 
 export const Header = () => {
     const { theme, toggleTheme } = useTheme();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const isAdmin = useIsAdmin();
     const location = useLocation();
   
     useEffect(() => {
+
+
       localStorage.setItem("theme", theme);
   
       if (theme === "dark") {
@@ -33,6 +40,8 @@ export const Header = () => {
       document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
     }, [isMenuOpen]);
   
+
+    const filteredHeaderMenu = HeaderMenu.filter((item) => item.isForAdmin !== true)
 
   return (
     <header
@@ -76,7 +85,7 @@ export const Header = () => {
             )}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {HeaderMenu.map((item) => (
+            {(isAdmin ? HeaderMenu : filteredHeaderMenu).map((item) => (
               <li
                 key={item.label}
                 className={clsx(
@@ -102,6 +111,14 @@ export const Header = () => {
             )}
           >
               <Switcher logic={() => handleThemeSwitch()} theme={theme} className="w-69 h-9"/>
+              <button className="flex items-center justify-center" onClick={logout}>
+                <Icon
+                  icon={ICON_COLLECTION.logout}
+                  iconSize="32px"
+                  iconColor="#ff0000"
+                  hoverColor="#800000"
+                />
+              </button>
           </div>
 
         </nav>

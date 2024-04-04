@@ -1,5 +1,9 @@
 import React from "react";
-import { Header } from "../../shared/components/header/header";
+import { Header } from "../../modules/header/header";
+import { userApi } from "../services/userApi";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/reducers/UserSlice";
+import { Loader } from "@/shared/UI/loader/loader";
 
 
 interface LayoutProps {}
@@ -8,6 +12,17 @@ export const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
   children,
 }) => {
   const isMobile = window.innerWidth < 992;
+  const dispatch = useDispatch();
+
+  const {data: user, isLoading} = userApi.useGetUserQuery(localStorage.getItem('userId'));
+  if(user){
+    dispatch(setUser(user));
+  }
+
+  if(isLoading){
+    return <Loader/>
+  }
+
   return (
     <>
         <Header/>

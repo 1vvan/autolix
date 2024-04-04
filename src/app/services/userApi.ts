@@ -2,7 +2,6 @@ import {
   LoginDTO,
   LoginResponce,
   RegisterDTO,
-  RequestUpdateUserData,
 } from "@/shared/types/api-types";
 import { api } from "./api";
 import { IUser } from "@/shared/types/IUser";
@@ -16,24 +15,17 @@ export const userApi = api.injectEndpoints({
         body: data,
       }),
     }),
-    fetchRegister: builder.mutation<IUser, RegisterDTO>({
+    fetchRegister: builder.mutation<LoginResponce, RegisterDTO>({
       query: (data: RegisterDTO) => ({
         url: "/register",
         method: "POST",
         body: data,
       }),
     }),
-    getCurrentUser: builder.query<IUser, string>({
-      query: () => ({ url: "/user" }),
-    }),
-    updateUser: builder.mutation<IUser, RequestUpdateUserData>({
-      query: (data: RequestUpdateUserData) => ({
-        url: `/user/${data.userId}`,
-        method: "POST",
-        body: data.data,
-      }),
-    }),
+    getUser: builder.query<IUser, number | string | null>({
+      query: (id) => ({ url: `/user/${id}` }),
+    })
   }),
 });
 
-export const { useFetchLoginMutation, useFetchRegisterMutation, useGetCurrentUserQuery, useUpdateUserMutation } = userApi;
+export const { useFetchLoginMutation, useFetchRegisterMutation, useGetUserQuery } = userApi;

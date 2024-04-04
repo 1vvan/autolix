@@ -1,32 +1,44 @@
 import { IUser } from "@/shared/types/IUser";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 interface UserState {
-  user: IUser;
+  user: IUser | null;
   isLoading: boolean;
-  error: string;
+  error: string | null;
 }
 
 const initialState: UserState = {
-  user: {
-    id: 0,
-    name: "",
-    nickname: "",
-    photo: "",
-    lang: "",
-    email: "",
-    email_verified_at: "",
-    created_at: "",
-    updated_at: "",
-  },
+  user: null,
   isLoading: false,
-  error: "",
+  error: null,
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    startLoading(state) {
+      state.isLoading = true;
+    },
+    setUser(state, action: PayloadAction<IUser>) {
+      state.user = action.payload;
+      state.isLoading = false;
+      state.error = null;
+    },
+    setError(state, action: PayloadAction<string>) {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+    logoutUser(state) {
+      state.user = null;
+      state.error = null;
+    },
+  },
 });
+
+export const selectIsAdmin = (state: RootState) => state.userReducer.user?.is_admin || false;
+
+export const { startLoading, setUser, setError, logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;

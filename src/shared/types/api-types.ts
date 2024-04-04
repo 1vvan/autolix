@@ -19,6 +19,17 @@ export interface ICar {
     horse_power: number | string;
 }
 
+export interface IClient {
+  id: number;
+  full_name: string;
+  buying_price: string | number;
+  car: ICar;
+  phone: string;
+  email: string;
+  address: string;
+  created_at: string;
+}
+
 export interface LoginDTO {
   email: string;
   password: string;
@@ -32,9 +43,13 @@ export interface LoginResponce {
 export interface RegisterDTO {
   email: string;
   password: string;
-  name: string;
-  nickname: string;
-  lang: string;
+  full_name: string;
+}
+
+export interface RegisterResponce {
+  email: string;
+  password: string;
+  full_name: string;
 }
 
 export interface IAccountSettings {
@@ -87,4 +102,21 @@ export interface AllTypes {
   gearboxTypes: GearboxType[];
   driveUnitTypes: DriveUnitType[];
   paymentMethods: PaymentMethod[];
+}
+
+export interface ISale {
+  id: number;
+  client_full_name: string;
+  car_details: ICar;
+  sale_date: string;
+  sale_price: number | string;
+  payment_method: string;
+}
+
+export interface IGetSalesRequest {
+  saleDateStart?: string | null;
+  saleDateEnd?: string | null;
+  salePriceMin?: number | null;
+  salePriceMax?: number | null;
+  paymentMethodId?: number | null;
 }
