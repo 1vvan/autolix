@@ -199,7 +199,7 @@ export const DatePickerDialog: React.FC<IDatePickerDialogProps> = ({
                         tabIndex={-1}
                         style={popper.styles.popper}
                         className={clsx(
-                            "dialog-sheet bg-white dark:bg-gray-950 mt-2 rounded-xl shadow-lg shadow-gray-300	dark:shadow-gray-800",
+                            "dialog-sheet bg-white dark:bg-gray-950 mt-2 rounded-xl shadow-lg shadow-gray-300 dark:shadow-gray-800",
                             styles.calendar
                         )}
                         {...popper.attributes.popper}

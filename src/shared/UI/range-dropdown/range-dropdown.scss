@@ -1,0 +1,46 @@
+.rc-slider-rail{
+    opacity: 0.3;
+}
+
+.rc-slider-rail,
+.rc-slider-track {
+    height: 12px;
+}
+
+.rc-slider-handle {
+    height: 24px;
+    width: 24px;
+    background-color: #fff;
+    opacity: 1;
+    border: 1px solid #8B5CF6;
+    &:hover{
+        border-color: #8B5CF6 !important;
+    }
+}
+.rc-slider-handle-dragging{
+    border-color: #8B5CF6 !important;
+    box-shadow: 0 0 0 5px #8B5CF6 !important;
+}
+
+.rc-slider-track {
+    background-color: #8B5CF6;
+}
+
+.mobile-dropdown-blur{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: z-index .5s ease 0s;
+    transition: opacity 1s ease 0s;
+    &--open{
+        z-index: 49;
+        opacity: 1;
+        transition: z-index .5s ease 0s;
+        transition: opacity 1s ease 0s;
+    }
+}

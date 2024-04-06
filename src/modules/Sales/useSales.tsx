@@ -1,6 +1,8 @@
 import { salesApi } from "@/app/services/salesApi";
+import { selectPaymentMethods } from "@/app/store/reducers/TypesSlice";
 import { removeEmptyFields } from "@/shared/helpers/removeEmptyFields";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const initSalesRequestData = {
     sale_date_start: null,
@@ -13,6 +15,14 @@ const initSalesRequestData = {
 export const useSales = () => {
     const [salesRequestData, setSalesRequestData] = useState(initSalesRequestData);
     const {data: sales = [], isLoading} = salesApi.useGetSalesQuery(removeEmptyFields(salesRequestData))
+    
+    const paymentMethods = useSelector(selectPaymentMethods)
+    const paymentMethodsOptions = paymentMethods.map((item) => {
+        return {
+            label: item.name,
+            value: item.id
+        }
+    })
 
     const changeParam = (key, value) => {
         setSalesRequestData(prevState => ({
@@ -29,7 +39,9 @@ export const useSales = () => {
     return {
         models: {
             sales,
-            isLoading
+            isLoading,
+            paymentMethodsOptions,
+            salesRequestData
         },
         commands: {
             changeParam,
