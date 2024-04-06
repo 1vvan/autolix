@@ -4,7 +4,10 @@ import { api } from "./api";
 export const salesApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getSales: builder.query<ISale[], IGetSalesRequest>({
-      query: (carId) => ({ url: `/sales` }),
+      query: (params: IGetSalesRequest) => ({
+        url: `/sales`,
+        params,
+      }),
     })
   }),
 });

@@ -20,17 +20,17 @@ export const SalesTable: React.FC<SalesTableProps> = ({sales, isLoading, changeP
             <table className="table-auto w-full border-collapse border border-gray-300 rounded-md overflow-hidden">
                 <thead>
                 <tr className="bg-gray-400 dark:bg-gray-200">
-                    <th className="px-4 py-2">ID</th>
-                    <th className="px-4 py-2">Client</th>
-                    <th className="px-4 py-2">Buying Price</th>
-                    <th className="px-4 py-2">Car</th>
-                    <th className="px-4 py-2">Car VIN</th>
-                    <th className="px-4 py-2">Payment Method</th>
-                    <th className="px-4 py-2">Sale At</th>
+                    <th className="px-4 py-2" style={{width: '3%'}}>ID</th>
+                    <th className="px-4 py-2 w-2/12">Client</th>
+                    <th className="px-4 py-2 w-2/12">Buying Price</th>
+                    <th className="px-4 py-2 w-2/12">Car</th>
+                    <th className="px-4 py-2 w-2/12">Car VIN</th>
+                    <th className="px-4 py-2 w-2/12">Payment Method</th>
+                    <th className="px-4 py-2 w-2/12">Sale At</th>
                 </tr>
                 </thead>
                 <tbody>
-                {sales.map((client) => (
+                {sales ? sales.map((client) => (
                     <tr key={client.id} className="border-b border-gray-300 text-gray-600 dark:text-gray-200 bg-gray-200 dark:bg-transparent">
                         <td className="px-4 py-2 text-center">{client.id}</td>
                         <td className="px-4 py-2 text-center">{client.client_full_name}</td>
@@ -40,7 +40,7 @@ export const SalesTable: React.FC<SalesTableProps> = ({sales, isLoading, changeP
                         <td className="px-4 py-2 text-center">{client.payment_method}</td>
                         <td className="px-4 py-2 text-center"><Moment date={client.sale_date} format="dddd YYYY-MM-DD"/></td>
                     </tr>
-                ))}
+                )) : <span className="text-gray-600 dark:text-gray-200 mx-auto">Nothing found</span>}
                 </tbody>
             </table>
         </div>

@@ -4,6 +4,8 @@ import { userApi } from "../services/userApi";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/reducers/UserSlice";
 import { Loader } from "@/shared/UI/loader/loader";
+import { typesApi } from "../services/typesApi";
+import { setTypesState } from "../store/reducers/TypesSlice";
 
 
 interface LayoutProps {}
@@ -15,8 +17,12 @@ export const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
   const dispatch = useDispatch();
 
   const {data: user, isLoading} = userApi.useGetUserQuery(localStorage.getItem('userId'));
+  const {data: types} = typesApi.useGetTypesQuery();
   if(user){
     dispatch(setUser(user));
+  }
+  if(types){
+    dispatch(setTypesState(types))
   }
 
   if(isLoading){

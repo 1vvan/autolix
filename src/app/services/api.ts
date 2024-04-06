@@ -1,5 +1,5 @@
 import { BASE_API_URL } from "@/shared/constants/api-url";
-import { deleteLoginData, isTokenExpired } from "@/shared/helpers/authHelpers";
+import { logout, isTokenExpired } from "@/shared/helpers/authHelpers";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
@@ -12,7 +12,7 @@ export const api = createApi({
       }
 
       if (isTokenExpired()) {
-        deleteLoginData();
+        logout();
       } else {
         const accessToken = localStorage.getItem('token');
         if (accessToken) {

@@ -12,9 +12,11 @@ export const redirectToLogin = () => {
 };
 
 export const logout = () => {
-    localStorage.removeItem("token");
     localStorage.setItem('theme', 'dark');
-    document.location.href = ROUTES.login.path;
+    localStorage.removeItem('token');
+    localStorage.removeItem('tokenTimestamp');
+    localStorage.removeItem("userId");
+    window.location.href = ROUTES.login.path;
 };
 
 export const useIsAdmin = () => {
@@ -39,11 +41,4 @@ export const isTokenExpired = () => {
     const expiryTime = new Date(parseInt(tokenTimestamp, 10) + 86400000);
 
     return now > expiryTime;
-}
-
-export const deleteLoginData = () => {
-    // localStorage.removeItem('token');
-    // localStorage.removeItem('tokenTimestamp');
-    // localStorage.removeItem("userId");
-    // window.location.href = ROUTES.login.path;
 }

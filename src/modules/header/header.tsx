@@ -12,10 +12,13 @@ import headerIconDark from '@icons/logo-dark.svg'
 import { Icon } from "@/shared/components/icon/icon";
 import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
 import { logout, useIsAdmin } from "@/shared/helpers/authHelpers";
+import { logoutUser } from "@/app/store/reducers/UserSlice";
+import { useDispatch } from "react-redux";
 
 export const Header = () => {
     const { theme, toggleTheme } = useTheme();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const dispatch = useDispatch();
 
     const isAdmin = useIsAdmin();
     const location = useLocation();
@@ -111,7 +114,7 @@ export const Header = () => {
             )}
           >
               <Switcher logic={() => handleThemeSwitch()} theme={theme} className="w-69 h-9"/>
-              <button className="flex items-center justify-center" onClick={logout}>
+              <button className="flex items-center justify-center" onClick={() => {logout(); dispatch(logoutUser());}}>
                 <Icon
                   icon={ICON_COLLECTION.logout}
                   iconSize="32px"

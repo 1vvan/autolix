@@ -1,0 +1,219 @@
+.calendar {
+    z-index: 106;
+    border-radius: 6px;  
+    box-shadow: 0px 5px 40px 5px rgba(0, 0, 0, 0.10);
+  }
+  
+  .calendar-select {
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .head {
+    font-size: 14px;
+    .head {
+      font-weight: 600;
+    }
+  }
+  
+  .nav_icon * {
+    fill: #8B5CF6 !important;
+  }
+  
+  .selected {
+    border-color: #F0F0FA;
+    color: #fff;
+    background: #E5E7EB;
+  
+    &:not([disabled]) {
+      background: #8B5CF6;
+      border: none;
+      color: #fff;
+      font-weight: 400;
+    }
+  
+    &:hover {
+      &:not([disabled]) {
+        color: #fff;
+      }
+    }
+  }
+  
+  .today {
+    font-weight: 400;
+    background: #8B5CF6;
+    color: #1F2937;
+    border-radius: 6px;
+  }
+  
+  .today_dark {
+    font-weight: 400;
+    background: #6D28D9;
+    color: #fff;
+    border-radius: 6px;
+  }
+  
+  .day_range_start {
+    border-radius: 0 !important;
+    border-top-left-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+    background-color: #8B5CF6 !important;
+    color: #fff !important;
+  
+    &_dark {
+      border-radius: 0 !important;
+      border-top-left-radius: 6px !important;
+      border-bottom-left-radius: 6px !important;
+      background-color: #6D28D9 !important;
+      color: #fff !important;
+    }
+  }
+  
+  .day_range_end {
+    border-radius: 0 !important;
+    border-top-right-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+    background-color: #8B5CF6 !important;
+    color: #fff !important;
+  
+    &_dark {
+      border-radius: 0 !important;
+      border-top-right-radius: 6px !important;
+      border-bottom-right-radius: 6px !important;
+      background-color: #6D28D9 !important;
+      color: #fff !important;
+    }
+  }
+  
+  .day_range_end_only {
+    border-radius: 6px !important;
+    background-color: #8B5CF6 !important;
+    color: #fff !important;
+  
+    &_dark {
+      border-radius: 6px !important;
+      background-color: #6D28D9 !important;
+      color: #fff !important;
+    }
+  }
+  
+  .day_range_middle {
+    background-color: #E5E7EB !important;
+    color: #1F2937 !important;
+    border-radius: 0 !important;
+  
+    &_dark {
+      background-color: #1F2937 !important;
+      color: #E1E1E1 !important;
+      border-radius: 0 !important;
+    }
+  }
+  
+  .input-wrapper {
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    max-width: fit-content;
+  }
+  
+  .input {
+    cursor: pointer;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+  
+    &:focus {
+      border: none;
+      outline: none;
+    }
+  
+    &::placeholder {
+      font-size: 16px;
+    }
+  }
+  
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    padding: 18px 13px;
+    width: 100%;
+    &__days{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      margin: 0;
+      & span{
+        font-weight: 700;
+        margin: 0px 5px 0px 0px;
+      }
+      & div{
+        max-width: 350px;
+      }
+    }
+  }
+  .month:first-child,
+  .month_dark:first-child{
+    padding-right: 12px;
+  }
+  .month:last-child,
+  .month_dark:last-child {
+    padding-left: 12px;
+  }
+  .month:first-child{
+    border-right: 1px solid #E5E7EB;
+  }
+  .month_dark:first-child {
+    border-right: 1px solid #1F2937;
+  }
+  
+  .cancel_btn{
+    width: 165px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .caption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0px 0px 12px 0px;
+  
+    &__label {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 140%;
+      color: #3B454E;
+  
+      &_dark {
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 140%;
+          color: #E1E1E1;
+        }
+    }
+  }

@@ -1,10 +1,11 @@
 import { carsApi } from "@/app/services/carsApi";
-import { typesApi } from "@/app/services/typesApi";
+import { selectAllTypes } from "@/app/store/reducers/TypesSlice";
+import { useSelector } from "react-redux";
 
 export const useOneCar = (carId) => {
     const { data: oneCar, isLoading } =
     carsApi.useGetOneCarQuery(carId);
-    const {data: types} = typesApi.useGetTypesQuery();
+    const types = useSelector(selectAllTypes)
 
     const getCarTypesNames = () => {
         if (!oneCar || !types) return {};

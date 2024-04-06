@@ -114,9 +114,9 @@ export interface ISale {
 }
 
 export interface IGetSalesRequest {
-  saleDateStart?: string | null;
-  saleDateEnd?: string | null;
-  salePriceMin?: number | null;
-  salePriceMax?: number | null;
-  paymentMethodId?: number | null;
+  sale_date_start?: string | null;
+  sale_date_end?: string | null;
+  sale_price_min?: number | string | null;
+  sale_price_max?: number | string | null;
+  payment_method_id?: number | null;
 }

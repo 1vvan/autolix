@@ -1,0 +1,41 @@
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+    background-color: #DDD6FE;
+    border-radius: 6px;
+    color: #1F2937;
+}
+
+html.dark .rdp-button {
+    &:hover:not([disabled]):not(.rdp-day_selected) {
+        background-color: #1F2937;
+        border-radius: 6px;
+        color: #E1E1E1;
+    }
+}
+
+@media (max-width: 992px) {
+    .rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+        background-color: #8B5CF6;
+        border-radius: 6px;
+        color: #fff;
+    }
+
+    html.dark .rdp-button {
+        &:hover:not([disabled]):not(.rdp-day_selected) {
+            background-color: #6D28D9;
+            border-radius: 6px;
+            color: #FFFFFF;
+        }
+    }
+}
+
+.rdp-head {
+    display: none;
+}
+
+.rdp-caption {
+    padding: 0px 0px 8px 0px;
+}
+
+.rdp-table {
+    margin: 12px 0px 0px 0px;
+}
