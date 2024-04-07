@@ -5,7 +5,7 @@ import styles from './header.module.scss'
 import { useTheme } from "../../shared/theme-context/theme-context";
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { HeaderMenu } from '@/shared/constants/header-menu';
+import { adminMenu, userMenu } from '@/shared/constants/header-menu';
 import { ROUTES } from "@/shared/constants/routes";
 import headerIconLight from '@icons/logo-light.svg'
 import headerIconDark from '@icons/logo-dark.svg'
@@ -44,8 +44,6 @@ export const Header = () => {
     }, [isMenuOpen]);
   
 
-    const filteredHeaderMenu = HeaderMenu.filter((item) => item.isForAdmin !== true)
-
   return (
     <header
       className={clsx("fixed z-50 header h-20 flex flex-row items-center justify-center bg-white dark:bg-dark-bg", {
@@ -54,11 +52,11 @@ export const Header = () => {
     >
       <div className=" header__container h-full flex items-center justify-between w-screen mx-auto px-8 dark:border-b dark:bg-dark-bg dark:border-dark-border">
       {theme === "light" ? (
-          <a href={ROUTES.available_cars.path} className="w-56 xl:w-fit">
+          <a href={ROUTES.cars.path} className="w-56 xl:w-fit">
             <img src={headerIconLight} alt=""/>
           </a>
         ) : (
-          <a href={ROUTES.available_cars.path} className="w-56 xl:w-fit">
+          <a href={ROUTES.cars.path} className="w-56 xl:w-fit">
             <img src={headerIconDark} alt=""/>
           </a>
         )}
@@ -88,7 +86,7 @@ export const Header = () => {
             )}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {(isAdmin ? HeaderMenu : filteredHeaderMenu).map((item) => (
+            {(isAdmin ? adminMenu : userMenu).map((item) => (
               <li
                 key={item.label}
                 className={clsx(

@@ -1,7 +1,7 @@
 export const ROUTES = {
-    available_cars: {
+    cars: {
         path: '/',
-        title: 'Available Cars'
+        title: "Cars"
     },
     one_car:{
         path: '/car',

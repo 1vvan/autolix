@@ -30,7 +30,7 @@ export const SalesTable: React.FC<SalesTableProps> = ({sales, isLoading, changeP
                 </tr>
                 </thead>
                 <tbody>
-                {sales ? sales.map((client) => (
+                {sales.map((client) => (
                     <tr key={client.id} className="border-b border-gray-300 text-gray-600 dark:text-gray-200 bg-gray-200 dark:bg-transparent">
                         <td className="px-4 py-2 text-center">{client.id}</td>
                         <td className="px-4 py-2 text-center">{client.client_full_name}</td>
@@ -40,9 +40,10 @@ export const SalesTable: React.FC<SalesTableProps> = ({sales, isLoading, changeP
                         <td className="px-4 py-2 text-center">{client.payment_method}</td>
                         <td className="px-4 py-2 text-center"><Moment date={client.sale_date} format="dddd YYYY-MM-DD"/></td>
                     </tr>
-                )) : <span className="text-gray-600 dark:text-gray-200 mx-auto">Nothing found</span>}
+                ))}
                 </tbody>
             </table>
+            {!sales.length && <div className="text-gray-600 dark:text-gray-200 text-center text-nowrap pt-2">Nothing found</div>}
         </div>
     )
 }

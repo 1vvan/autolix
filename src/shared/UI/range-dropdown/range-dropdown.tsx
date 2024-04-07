@@ -63,16 +63,16 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
       <div ref={popperRef} onClick={handleOpen}>
         <button
           className={clsx(
-            "flex gap-3 p-3 border rounded-xl relative",
+            "flex gap-3 p-3 border rounded-xl relative items-center",
             {
-              "dark:bg-dark-border dark:border-dark-border": isOpen,
+              "dark:bg-dark-border dark:border-dark-border border-violet400": isOpen,
               "border-gray-200 dark:border-gray-700": !isOpen,
             }
           )}
           ref={buttonRef}
           onClick={handleOpen}
         >
-          <span className="text-gray-500 font-medium dark:text-gray-300 text-l">
+          <span className="text-black dark:text-gray-300 text-l">
             {placeholder}
           </span>
             <Icon
@@ -110,7 +110,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
                     <input
                       type="number"
                       value={rangeValue[0]}
-                      className="bg-transparent text-gray-800 font-medium dark:text-white w-fit"
+                      className="bg-transparent text-gray-800 font-medium dark:text-white appearance-none"
                       onChange={(e) =>
                         handleRangeChange([+e.target.value, rangeValue[1]])
                       }
@@ -123,7 +123,7 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
                     <input
                       type="number"
                       value={rangeValue[1]}
-                      className="bg-transparent text-gray-800 font-medium dark:text-white w-fit"
+                      className="bg-transparent text-gray-800 font-medium dark:text-white appearance-none"
                       onChange={(e) =>
                         handleRangeChange([rangeValue[0], +e.target.value])
                       }

@@ -66,7 +66,7 @@ export const useRegister = () => {
           saveLoginData(response.data.token, response.data.user.id)
           setRegisterData(initRegData);
           setRegErrors(initRegData);
-          navigate(ROUTES.available_cars.path);
+          navigate(ROUTES.cars.path);
         }
       });
     }

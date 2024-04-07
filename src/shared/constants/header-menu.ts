@@ -1,17 +1,21 @@
-export const HeaderMenu = [
+export const userMenu = [
     {
         path: '/',
         label: 'Available Cars',
-        isForAdmin: false
+    }
+]
+
+export const adminMenu = [
+    {
+        path: '/',
+        label: 'Cars',
     },
     {
         path: '/clients',
         label: 'Clients',
-        isForAdmin: true
     },
     {
         path: '/sales',
         label: 'Sales',
-        isForAdmin: true
     },
 ]

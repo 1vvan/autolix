@@ -56,7 +56,7 @@ export const useLogin = () => {
         if (responseData.data && !error) {
           dispatch(setUser(responseData.data.user));
           saveLoginData(responseData.data.token, responseData.data.user.id)
-          navigate(ROUTES.available_cars.path);
+          navigate(ROUTES.cars.path);
           setLoginData(initLoginData);
           setLoginErrors(initLoginData);
         }

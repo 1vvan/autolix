@@ -14,10 +14,23 @@ export interface ICar {
     vin: string;
     price: number | string;
     status_id: number;
+    status_name?: string;
     created_at: string;
     image_path: string;
     horse_power: number | string;
 }
+
+export interface IGetAllCarsRequest {
+  status_id?: number | null;
+  year_min?: number | null;
+  year_max?: number | null;
+  gearbox_type_id?: number | null;
+  engine_type_id?: number | null;
+  fuel_id?: number | null;
+  drive_unit_id?: number | null;
+}
+
+
 
 export interface IClient {
   id: number;
