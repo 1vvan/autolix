@@ -5,7 +5,6 @@ import styles from './header.module.scss'
 import { useTheme } from "../../shared/theme-context/theme-context";
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { adminMenu, userMenu } from '@/shared/constants/header-menu';
 import { ROUTES } from "@/shared/constants/routes";
 import headerIconLight from '@icons/logo-light.svg'
 import headerIconDark from '@icons/logo-dark.svg'
@@ -14,6 +13,7 @@ import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
 import { logout, useIsAdmin } from "@/shared/helpers/authHelpers";
 import { logoutUser } from "@/app/store/reducers/UserSlice";
 import { useDispatch } from "react-redux";
+import { adminMenu, userMenu } from "@/shared/constants/fields";
 
 export const Header = () => {
     const { theme, toggleTheme } = useTheme();

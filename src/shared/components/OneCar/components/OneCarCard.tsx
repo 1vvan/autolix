@@ -4,13 +4,15 @@ import { ICar } from "@/shared/types/api-types";
 import React from "react";
 import { clsx } from 'clsx';
 import { AVAILABLE_TYPE, ELECTRIC_FUEL_TYPE, RESERVED_TYPE, SOLD_TYPE } from "@/shared/constants/types";
+import Moment from "react-moment";
 
 interface OneCarCardProps {
     car: ICar | undefined
     types: any
+    buyCar: (id: number) => void
 }
 
-export const OneCarCard: React.FC<OneCarCardProps> = ({car, types}) => {
+export const OneCarCard: React.FC<OneCarCardProps> = ({car, types, buyCar}) => {
     return(
         <div className=" max-w-fit mx-auto">
             {car && 
@@ -22,7 +24,9 @@ export const OneCarCard: React.FC<OneCarCardProps> = ({car, types}) => {
                             'border-red-600 bg-red-500 text-red-900': car.status_id === SOLD_TYPE,
                             'border-yellow-600 bg-yellow-500 text-yellow-900': car.status_id === RESERVED_TYPE,
                         })}>
-                            {types.statusType}
+                            {types.statusType} 
+                            {car.status_id === ( SOLD_TYPE || RESERVED_TYPE) && ` at: `}
+                            {car.status_id === ( SOLD_TYPE || RESERVED_TYPE) && <Moment date={car.status_changed_at} format="YYYY-MM-DD HH:MM"/>}
                         </div>
                     </div>
                     <div className="flex justify-between items-center mt-4 px-3">
@@ -35,7 +39,13 @@ export const OneCarCard: React.FC<OneCarCardProps> = ({car, types}) => {
                         <span className="flex items-center">Drive Unit: <span className="ml-4 text-gray-900 dark:text-gray-600">{types.driveUnitType}</span></span>
                         <span className="flex items-center">Gearbox: <span className="ml-4 text-gray-900 dark:text-gray-600">{types.gearboxType}</span></span>
                         <span className="flex items-center">Fuel: <span className="ml-4 text-gray-900 dark:text-gray-600">{types.fuelType}</span></span>
+                        <span className="flex items-center">VIN: <span className="ml-4 text-gray-900 dark:text-gray-600">{car.vin}</span></span>
                     </div>
+                    {car.status_id === AVAILABLE_TYPE && (
+                        <div className="text-gray-900 dark:text-gray-600 text-2xl py-8 text-center">
+                            Are you want to buy this car? <button className="border-none text-purple-400 hover:text-purple-500 duration-200" onClick={() => buyCar(car.id)}>Go to buy form</button>
+                        </div>
+                    )}
                 </>
             }
         </div>

@@ -1,4 +1,4 @@
-import {ICar, IGetAllCarsRequest} from "@/shared/types/api-types";
+import {IBuyCarRequest, ICar, IGetAllCarsRequest} from "@/shared/types/api-types";
 import { api } from "./api";
 
 export const carsApi = api.injectEndpoints({
@@ -15,11 +15,19 @@ export const carsApi = api.injectEndpoints({
         params,
       }),
     }),
+    buyCar: builder.mutation<void, IBuyCarRequest>({
+      query: (buyCarRequest) => ({
+        url: '/buy-car',
+        method: 'POST',
+        body: buyCarRequest,
+      }),
+    }),
   }),
 });
 
 export const {
   useGetAvailableCarsQuery,
   useGetOneCarQuery,
-  useGetAllCarsQuery
+  useGetAllCarsQuery,
+  useBuyCarMutation
 } = carsApi;

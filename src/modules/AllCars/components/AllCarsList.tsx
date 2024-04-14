@@ -13,7 +13,7 @@ export const AllCarsList: React.FC<AllCarsListProps> = ({
     cars
 }) => {
     return (
-        <div className="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <div className="mx-auto px-4 py-10 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 xl:gap-x-8">
                 {cars && cars.map((car) => (
                     <a key={car.id} href={ROUTES.one_car.path + '/' + car.id} className="group cursor-pointer">

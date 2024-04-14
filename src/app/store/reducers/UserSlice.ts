@@ -37,6 +37,8 @@ export const userSlice = createSlice({
   },
 });
 
+export const selectCurrentUser = (state: RootState) => state.userReducer.user;
+
 export const selectIsAdmin = (state: RootState) => state.userReducer.user?.is_admin || false;
 
 export const { startLoading, setUser, setError, logoutUser } = userSlice.actions;

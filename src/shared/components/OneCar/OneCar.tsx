@@ -7,12 +7,12 @@ import { OneCarCard } from "./components/OneCarCard";
 
 export const OneCar = () => {
     const { id } = useParams();
-    const {models} = useOneCar(id);
+    const {models, commands} = useOneCar(id);
 
     return(
         <Layout>
             <section className="w-full dark:bg-dark-bg py-3 md:py-8 px-4 md:px-16">
-                <OneCarCard car={models.oneCar} types={models.types}/>
+                <OneCarCard car={models.oneCar} types={models.types} buyCar={commands.navigateToBuyForm}/>
             </section>
         </Layout>
     )

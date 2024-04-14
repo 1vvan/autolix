@@ -10,6 +10,7 @@ import { RegisterPage } from './modules/Auth/Register/Register';
 import { Clients } from './modules/Clients/Clients';
 import { Sales } from './modules/Sales/Sales';
 import { AllCars } from './modules/AllCars/AllCars';
+import { BuyCar } from './modules/BuyCar/BuyCar';
 
 const PrivateRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" />;
@@ -33,7 +34,7 @@ function App() {
         <Routes>
           <Route path={ROUTES.cars.path} element={<HomeRoute/>}/>
           <Route path={ROUTES.one_car.path+'/:id'} element={<PrivateRoute><OneCar/></PrivateRoute> }/>
-          <Route path={ROUTES.one_car.path+'/:id'} element={<PrivateRoute><OneCar/></PrivateRoute> }/>
+          <Route path={ROUTES.buy_car.path+'/:carId'} element={<PrivateRoute><BuyCar/></PrivateRoute> }/>
           <Route path={ROUTES.clients.path} element={<AdminRoute><Clients/></AdminRoute> }/>
           <Route path={ROUTES.sales.path} element={<AdminRoute><Sales/></AdminRoute> }/>
           <Route path={ROUTES.login.path} element={<LoginPage />} />

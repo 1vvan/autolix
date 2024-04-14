@@ -1,11 +1,14 @@
 import { carsApi } from "@/app/services/carsApi";
 import { selectAllTypes } from "@/app/store/reducers/TypesSlice";
+import { ROUTES } from "@/shared/constants/routes";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const useOneCar = (carId) => {
     const { data: oneCar, isLoading } =
     carsApi.useGetOneCarQuery(carId);
     const types = useSelector(selectAllTypes)
+    const navigate = useNavigate()
 
     const getCarTypesNames = () => {
         if (!oneCar || !types) return {};
@@ -27,6 +30,10 @@ export const useOneCar = (carId) => {
         };
     }
 
+    const navigateToBuyForm = (id) => {
+        navigate(ROUTES.buy_car.path + `/${id}`)
+    }
+
     return {
         models: {
             oneCar,
@@ -34,6 +41,7 @@ export const useOneCar = (carId) => {
             isLoading
         },
         commands: {
+            navigateToBuyForm
         },
       };
 }

@@ -18,6 +18,7 @@ export interface ICar {
     created_at: string;
     image_path: string;
     horse_power: number | string;
+    status_changed_at: string;
 }
 
 export interface IGetAllCarsRequest {
@@ -30,7 +31,15 @@ export interface IGetAllCarsRequest {
   drive_unit_id?: number | null;
 }
 
-
+export interface IBuyCarRequest {
+  user_id: number;
+  buying_price: string | number;
+  buying_car_id: number;
+  payment_method: number;
+  phone: string | null;
+  email: string;
+  address: string;
+}
 
 export interface IClient {
   id: number;

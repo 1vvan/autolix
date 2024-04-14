@@ -7,6 +7,10 @@ export const ROUTES = {
         path: '/car',
         title: 'One car'
     },
+    buy_car:{
+        path: '/buy-car',
+        title: 'Buy car'
+    },
     login: {
         path: '/login',
         title: 'Login'
