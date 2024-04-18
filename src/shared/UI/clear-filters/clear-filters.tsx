@@ -1,5 +1,5 @@
-import { Icon } from "@/shared/components/icon/icon";
-import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
+import { Icon } from "@/shared/UI/icon/icon";
+import { ICON_COLLECTION } from "@/shared/UI/icon/icon-list";
 import React from "react";
 
 interface ClearFiltersProps {

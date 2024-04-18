@@ -4,11 +4,15 @@ import { api } from "./api";
 export const clientsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getCLients: builder.query<IClient[], void>({
-      query: (carId) => ({ url: `/clients` }),
+      query: () => ({ url: `/clients` }),
+    }),
+    getCLientPurchases: builder.query<IClient[], number>({
+      query: (userId) => ({ url: `/clients/${userId}/purchases` }),
     })
   }),
 });
 
 export const {
-  useGetCLientsQuery
+  useGetCLientsQuery,
+  useGetCLientPurchasesQuery
 } = clientsApi;

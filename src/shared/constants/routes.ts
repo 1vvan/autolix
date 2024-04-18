@@ -26,5 +26,9 @@ export const ROUTES = {
     sales: {
         path: '/sales',
         title: 'Sales'
+    },
+    user_purchases: {
+        path: '/user-purchases',
+        title: 'User Purchases'
     }
 }

@@ -1,5 +1,5 @@
 import { BASE_API_URL } from "@/shared/constants/api-url";
-import { logout, isTokenExpired } from "@/shared/helpers/authHelpers";
+import { logout, isTokenExpired, openEndpoints } from "@/shared/helpers/authHelpers";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
@@ -7,7 +7,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_API_URL,
     prepareHeaders: (headers, { getState, endpoint }) => {
-      if (endpoint === 'fetchLogin' || endpoint === 'fetchRegister') {
+      if (openEndpoints.includes(endpoint)) {
         return headers;
       }
 

@@ -12,8 +12,8 @@ import clsx from "clsx";
 import styles from "./date-picker.module.scss";
 import './date-picker.scss'
 import { useTheme } from "@/shared/theme-context/theme-context";
-import { Icon } from "@/shared/components/icon/icon";
-import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
+import { Icon } from "@/shared/UI/icon/icon";
+import { ICON_COLLECTION } from "@/shared/UI/icon/icon-list";
 import { usePopper } from 'react-popper';
 
 interface IDatePickerDialogProps {

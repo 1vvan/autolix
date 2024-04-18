@@ -18,7 +18,10 @@ export const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
   const isMobile = window.innerWidth < 992;
   const dispatch = useDispatch();
 
-  const {data: user, isLoading} = userApi.useGetUserQuery(localStorage.getItem('userId'));
+  const userId = localStorage.getItem('userId');
+  const { data: user, isLoading: isLoadingUser } = userApi.useGetUserQuery(userId, {
+    skip: !userId
+  });
   const {data: types} = typesApi.useGetTypesQuery();
   if(user){
     dispatch(setUser(user));
@@ -27,8 +30,8 @@ export const Layout: React.FC<React.PropsWithChildren<LayoutProps>> = ({
     dispatch(setTypesState(types))
   }
 
-  if(isLoading){
-    return <Loader/>
+  if(isLoadingUser){
+    return <Loader isFull/>
   }
 
   return (

@@ -2,6 +2,10 @@ export const userMenu = [
     {
         path: '/',
         label: 'Available Cars',
+    },
+    {
+        path: '/user-purchases',
+        label: 'Your Purchases',
     }
 ]
 

@@ -1,12 +1,15 @@
 import { carsApi } from "@/app/services/carsApi";
 import { selectAllTypes } from "@/app/store/reducers/TypesSlice";
+import { showLoginToast } from "@/shared/UI/loginRequireToast/loginRequireToast";
 import { ROUTES } from "@/shared/constants/routes";
+import { isAuthenticated } from "@/shared/helpers/authHelpers";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const useOneCar = (carId) => {
+export const useOneCar = () => {
+    const { id } = useParams();
     const { data: oneCar, isLoading } =
-    carsApi.useGetOneCarQuery(carId);
+    carsApi.useGetOneCarQuery(id);
     const types = useSelector(selectAllTypes)
     const navigate = useNavigate()
 
@@ -31,7 +34,11 @@ export const useOneCar = (carId) => {
     }
 
     const navigateToBuyForm = (id) => {
-        navigate(ROUTES.buy_car.path + `/${id}`)
+        if(isAuthenticated()){
+            navigate(ROUTES.buy_car.path + `/${id}`)
+        } else {
+            showLoginToast();
+        }
     }
 
     return {

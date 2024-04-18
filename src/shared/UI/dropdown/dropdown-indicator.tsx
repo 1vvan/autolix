@@ -1,8 +1,8 @@
 import { components } from "react-select";
 import React from "react";
 import { useTheme } from "@/shared/theme-context/theme-context";
-import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
-import { Icon } from "@/shared/components/icon/icon";
+import { ICON_COLLECTION } from "@/shared/UI/icon/icon-list";
+import { Icon } from "@/shared/UI/icon/icon";
 
 export const DropdownIndicator = (props: any) => {
   const { theme } = useTheme();

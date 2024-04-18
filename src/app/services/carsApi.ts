@@ -4,20 +4,20 @@ import { api } from "./api";
 export const carsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAvailableCars: builder.query<ICar[], string>({
-      query: () => ({ url: "/available-autos" }),
+      query: () => ({ url: "/autos/available" }),
     }),
     getOneCar: builder.query<ICar, number | string | undefined>({
-      query: (carId) => ({ url: `/one-auto/${carId}` }),
+      query: (carId) => ({ url: `/autos/${carId}` }),
     }),
     getAllCars: builder.query<ICar[], IGetAllCarsRequest>({
       query: (params: IGetAllCarsRequest) => ({
-        url: `/all-autos`,
+        url: `/autos-all`,
         params,
       }),
     }),
     buyCar: builder.mutation<void, IBuyCarRequest>({
       query: (buyCarRequest) => ({
-        url: '/buy-car',
+        url: '/autos/buy',
         method: 'POST',
         body: buyCarRequest,
       }),

@@ -6,8 +6,8 @@ import clsx from "clsx";
 import { usePopper } from "react-popper";
 import FocusTrap from "focus-trap-react";
 import { useTheme } from "@/shared/theme-context/theme-context";
-import { Icon } from "@/shared/components/icon/icon";
-import { ICON_COLLECTION } from "@/shared/components/icon/icon-list";
+import { Icon } from "@/shared/UI/icon/icon";
+import { ICON_COLLECTION } from "@/shared/UI/icon/icon-list";
 
 interface RangeDropdownProps {
   placeholder: string;

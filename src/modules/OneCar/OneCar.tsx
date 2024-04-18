@@ -1,13 +1,10 @@
 import { Layout } from "@/app/layout/Layout";
 import React from "react";
-import { useParams } from 'react-router-dom';
-
 import { useOneCar } from "./useOneCar";
 import { OneCarCard } from "./components/OneCarCard";
 
 export const OneCar = () => {
-    const { id } = useParams();
-    const {models, commands} = useOneCar(id);
+    const {models, commands} = useOneCar();
 
     return(
         <Layout>
