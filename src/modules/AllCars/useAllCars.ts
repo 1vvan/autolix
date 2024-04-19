@@ -4,8 +4,12 @@ import { selectAllTypes, selectDriveUnitTypes, selectEngineTypes, selectFuelType
 import { useSelector } from "react-redux";
 import { ICar } from "@/shared/types/api-types";
 import { removeEmptyFields } from "@/shared/helpers/removeEmptyFields";
+import { selectAllCarsModels } from "@/app/store/reducers/CarsSlice";
+import { mapOptions } from "@/shared/helpers/mapDropdownOptions";
 
 const initAllCarsRequestData = {
+    brand_id: null,
+    model_id: null,
     status_id: null,
     year_min: null,
     year_max: null,
@@ -31,30 +35,35 @@ export const useAllCars = () => {
     const [enhancedCars, setEnhancedCars] = useState<ICar[]>([]);
     const [sortOption, setSortOption] = useState('');
 
+    const carsModels = useSelector(selectAllCarsModels) || [];
     const statusOptions = useSelector(selectStatusTypes)
     const gearboxOptions = useSelector(selectGearboxTypes)
     const engineOptions = useSelector(selectEngineTypes)
     const fuelOptions = useSelector(selectFuelTypes)
     const driveUnitOptions = useSelector(selectDriveUnitTypes)
 
-    const mapOptions = (options) => options.map(item => ({
-        label: item.name,
-        value: item.id
-    }));
-
-    const dropdownsOptions = {
+    const [dropdownsOptions, setDropdownsOptions] = useState({
+        brandsOptions: mapOptions(carsModels.brands),
+        modelsOptions: [],
         statusOptions: mapOptions(statusOptions),
         gearboxOptions: mapOptions(gearboxOptions),
         engineOptions: mapOptions(engineOptions),
         fuelOptions: mapOptions(fuelOptions),
         driveUnitOptions: mapOptions(driveUnitOptions),
-    };
+    })
 
     const changeParam = (key, value) => {
         setTempFiltersData(prevState => ({
             ...prevState,
             [key]: value,
         }));
+        if(key === 'brand_id'){
+            const brandModels = carsModels.models && mapOptions(carsModels.models.filter(item => item.brand_id === value))
+            setDropdownsOptions(prevState => ({
+                ...prevState,
+                modelsOptions: brandModels
+            }))
+        }
     }
 
     const applySorting = (cars) => {

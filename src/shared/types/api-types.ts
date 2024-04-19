@@ -32,7 +32,14 @@ export interface IModels {
   brand_id: number;
 }
 
+export interface IAllCarsModels {
+  models: IModels[];
+  brands: IBrands[];
+}
+
 export interface IGetAllCarsRequest {
+  brand_id?: number| null;
+  model_id?: number | null;
   status_id?: number | null;
   year_min?: number | null;
   year_max?: number | null;

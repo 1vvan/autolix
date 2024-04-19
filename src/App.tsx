@@ -12,6 +12,14 @@ import { Sales } from './modules/Sales/Sales';
 import { AllCars } from './modules/AllCars/AllCars';
 import { BuyCar } from './modules/BuyCar/BuyCar';
 import { UserPurchases } from './modules/UserPurchases/UserPurchases';
+import { useDispatch } from 'react-redux';
+import { userApi } from './app/services/userApi';
+import { typesApi } from './app/services/typesApi';
+import { carsApi } from './app/services/carsApi';
+import { setUser } from './app/store/reducers/UserSlice';
+import { setTypesState } from './app/store/reducers/TypesSlice';
+import { setCarsModelsState } from './app/store/reducers/CarsSlice';
+import { Loader } from './shared/UI/loader/loader';
 
 const PrivateRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" />;
@@ -25,8 +33,28 @@ const AdminRoute = ({ children }) => {
 
 const HomeRoute = () => {
   const isAdmin = useIsAdmin();
+  const dispatch = useDispatch();
 
-  return isAdmin ? ( isAuthenticated() ?  <AllCars/> : <Navigate to="/login" /> ) : <AvailableCars/>; 
+  const userId = localStorage.getItem('userId');
+  const { data: user, isLoading: isLoadingUser } = userApi.useGetUserQuery(userId, {
+    skip: !userId
+  });
+  const {data: types, isLoading: isLoadingTypes} = typesApi.useGetTypesQuery();
+  const {data: carsModels, isLoading: isLoadingModels} = carsApi.useGetCarsModelsQuery();
+  
+  if(user){
+    dispatch(setUser(user));
+  }
+  if(types){
+    dispatch(setTypesState(types))
+  }
+  if (carsModels) {
+    dispatch(setCarsModelsState(carsModels));
+  }
+
+  const isLoading = isLoadingUser || isLoadingTypes || isLoadingModels;
+
+  return isAdmin ? ( isAuthenticated() ?  <AllCars/> : <Navigate to="/login" /> ) : (isLoading ? <Loader isFull/> : <AvailableCars/>); 
 }
 
 function App() {

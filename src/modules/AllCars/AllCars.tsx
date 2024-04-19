@@ -11,8 +11,8 @@ export const AllCars = () => {
 
     return (
         <Layout>
-            <section className="w-full dark:bg-dark-bg py-3 md:py-8 px-4 md:px-16">
-                <div className="w-full flex items-center gap-3">
+            <section className="w-full dark:bg-dark-bg py-3 md:py-8">
+                <div className="w-full flex items-center gap-3 px-6 pb-6">
                     <AllCarsFilters filtersData={models.filtersData} dropdownsOptions={models.dropdownsOptions} changeParam={commands.changeParam} onSaveFilters={commands.onSaveFilters} />
                     <Dropdown
                         id="sort"

@@ -33,7 +33,7 @@ export const DROPDOWN_STYLE_CONFIG = (darked) => {
                 borderColor: state.selectProps.menuIsOpen ?  "#a88bfa" : (darked ? "#374151" : "#E5E7EB"),
             },
             boxShadow: "none",
-            cursor: state.isDisabled ? "text" : "pointer",
+            cursor: state.isDisabled ? "default" : "pointer",
         }),
         option: (base) => ({
             ...base,
