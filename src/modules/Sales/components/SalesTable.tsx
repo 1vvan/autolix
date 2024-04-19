@@ -2,6 +2,7 @@ import { Loader } from "@/shared/UI/loader/loader";
 import { ISale } from "@/shared/types/api-types";
 import React from "react";
 import Moment from "react-moment";
+import { moneyFormatter } from '../../../shared/helpers/formatters';
 
 interface SalesTableProps {
     sales: ISale[];
@@ -34,7 +35,7 @@ export const SalesTable: React.FC<SalesTableProps> = ({sales, isLoading, changeP
                     <tr key={client.id} className="border-b border-gray-300 text-gray-600 dark:text-gray-200 bg-gray-200 dark:bg-transparent">
                         <td className="px-4 py-2 text-center">{client.id}</td>
                         <td className="px-4 py-2 text-center">{client.client_full_name}</td>
-                        <td className="px-4 py-2 text-center">${client.sale_price}</td>
+                        <td className="px-4 py-2 text-center">{moneyFormatter(client.sale_price)}</td>
                         <td className="px-4 py-2 text-center">{client.car_details.brand} {client.car_details.model}</td>
                         <td className="px-4 py-2 text-center">{client.car_details.vin}</td>
                         <td className="px-4 py-2 text-center">{client.payment_method}</td>

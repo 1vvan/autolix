@@ -20,13 +20,13 @@ const PrivateRoute = ({ children }) => {
 const AdminRoute = ({ children }) => {
   const isAdmin = useIsAdmin();
 
-  return isAuthenticated() ? isAdmin? children : <Navigate to={ROUTES.cars.path} /> : <Navigate to="/login" />;
+  return isAuthenticated() ? (isAdmin ? children : <Navigate to={ROUTES.cars.path} />) : <Navigate to="/login" />;
 };
 
 const HomeRoute = () => {
   const isAdmin = useIsAdmin();
 
-  return isAdmin ? ( isAuthenticated() ?  <AllCars/> : <Navigate to="/login" /> ) : <AvailableCars/> 
+  return isAdmin ? ( isAuthenticated() ?  <AllCars/> : <Navigate to="/login" /> ) : <AvailableCars/>; 
 }
 
 function App() {

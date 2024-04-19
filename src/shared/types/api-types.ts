@@ -21,6 +21,17 @@ export interface ICar {
     status_changed_at: string;
 }
 
+export interface IBrands {
+  id: number;
+  name: string;
+}
+
+export interface IModels {
+  id: number;
+  name: string;
+  brand_id: number;
+}
+
 export interface IGetAllCarsRequest {
   status_id?: number | null;
   year_min?: number | null;

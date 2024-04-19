@@ -25,6 +25,7 @@ const sortOptions = [
 
 export const useAllCars = () => {
     const [carsRequestData, setCarsRequestData] = useState(initAllCarsRequestData);
+    const [tempFiltersData, setTempFiltersData] = useState(carsRequestData);
     const { data: cars = [], isLoading } = carsApi.useGetAllCarsQuery(removeEmptyFields(carsRequestData));
     const types = useSelector(selectAllTypes);
     const [enhancedCars, setEnhancedCars] = useState<ICar[]>([]);
@@ -50,12 +51,11 @@ export const useAllCars = () => {
     };
 
     const changeParam = (key, value) => {
-        setCarsRequestData(prevState => ({
+        setTempFiltersData(prevState => ({
             ...prevState,
             [key]: value,
         }));
     }
-
 
     const applySorting = (cars) => {
         switch (sortOption) {
@@ -73,6 +73,16 @@ export const useAllCars = () => {
                 return cars;
         }
     };
+
+    const onSaveFilters = () => {
+        setCarsRequestData(tempFiltersData);
+    }
+
+    const clearFilters = () => {
+        setTempFiltersData(initAllCarsRequestData);
+        setCarsRequestData(initAllCarsRequestData)
+        setSortOption('')
+    }
 
     useEffect(() => {
         const sortedCars = applySorting(enhancedCars);
@@ -96,11 +106,6 @@ export const useAllCars = () => {
         }
     }, [cars, types]);
 
-    const clearFilters = () => {
-        setCarsRequestData(initAllCarsRequestData)
-        setSortOption('')
-    }
-
     useEffect(() => {
         if (sortOption === '') {
             const updatedCars = cars.map(item => ({
@@ -121,14 +126,15 @@ export const useAllCars = () => {
             cars: enhancedCars,
             isLoading,
             dropdownsOptions,
-            filtersData: carsRequestData,
+            filtersData: tempFiltersData,
             sortOptions,
-            selectedSort: sortOption
+            selectedSort: sortOption,
         },
         commands: {
             changeParam,
             clearFilters,
-            setSortOption
+            setSortOption,
+            onSaveFilters
         },
     };
 }

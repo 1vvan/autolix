@@ -5,6 +5,7 @@ import { clsx } from 'clsx';
 import { AVAILABLE_TYPE, ELECTRIC_FUEL_TYPE, RESERVED_TYPE, SOLD_TYPE } from "@/shared/constants/types";
 import Moment from "react-moment";
 import { ImageSlider } from "@/shared/UI/slider/slider";
+import { moneyFormatter } from "@/shared/helpers/formatters";
 
 interface OneCarCardProps {
     car: ICar | undefined
@@ -35,7 +36,7 @@ export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar }) =>
                     </div>
                     <div className="flex justify-between items-center mt-4 px-3">
                         <h2 className="text-4xl text-gray-700 dark:text-gray-200">{car.brand + ' ' + car.model} <span className="ml-3 text-3xl text-gray-900 dark:text-gray-600">{car.year}</span></h2>
-                        <span className="text-3xl font-medium text-gray-900 dark:text-gray-600">{car.price}</span>
+                        <span className="text-3xl font-medium text-gray-900 dark:text-gray-600">{moneyFormatter(car.price)}</span>
                     </div>
                     <div className="flex flex-col gap-2 mt-8 rounded-lg border-2 border-slate-600 p-3 text-gray-700 dark:text-gray-200 text-xl">
                         <span className="flex items-center">Color: <span className="ml-4 rounded-lg border border-white dark:border-gray-700 w-6 h-6 inline-block" style={{ backgroundColor: car.color }}></span></span>

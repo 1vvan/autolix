@@ -28,9 +28,9 @@ export const DROPDOWN_STYLE_CONFIG = (darked) => {
             fontSize: 16,
             borderRadius: 10,
             backgroundColor: state.selectProps.menuIsOpen ? (darked ? ' #1f2937' : "#fff") : (darked ? '#030712' : "#fff"),
-            borderColor: state.selectProps.menuIsOpen ? (darked ? ' #1f2937' : "#a88bfa") : (darked ? "#374151" : "#E5E7EB"),
+            borderColor: state.selectProps.menuIsOpen ? "#a88bfa" : (darked ? "#374151" : "#E5E7EB"),
             "&:hover": {
-                borderColor: state.selectProps.menuIsOpen ? (darked ? ' #1f2937' : "#a88bfa") : (darked ? "#374151" : "#E5E7EB"),
+                borderColor: state.selectProps.menuIsOpen ?  "#a88bfa" : (darked ? "#374151" : "#E5E7EB"),
             },
             boxShadow: "none",
             cursor: state.isDisabled ? "text" : "pointer",

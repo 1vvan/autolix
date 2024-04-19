@@ -63,9 +63,9 @@ const RangeDropdown: React.FC<RangeDropdownProps> = ({
       <div ref={popperRef} onClick={handleOpen}>
         <button
           className={clsx(
-            "flex gap-3 p-3 border rounded-xl relative items-center",
+            "flex gap-3 px-3 py-2.5 justify-between border rounded-xl relative items-center w-full dark:bg-dark-bg",
             {
-              "dark:bg-dark-border dark:border-dark-border border-violet400": isOpen,
+              "dark:bg-dark-border border-violet400": isOpen,
               "border-gray-200 dark:border-gray-700": !isOpen,
             }
           )}

@@ -1,5 +1,6 @@
 import { ImageSlider } from "@/shared/UI/slider/slider";
 import { ROUTES } from "@/shared/constants/routes";
+import { moneyFormatter } from "@/shared/helpers/formatters";
 import { ICar } from "@/shared/types/api-types";
 import React from "react";
 
@@ -24,7 +25,7 @@ export const AvailableCarsList: React.FC<AvailableCarsListProps> = ({
                         </div>
                         <div className="flex flex-col">
                             <h3 className="mt-4 text-lg text-gray-700 dark:text-gray-200">{car.brand + ' ' + car.model}</h3>
-                            <p className="mt-1 text-base font-medium text-gray-900 dark:text-gray-600">{car.price}</p>
+                            <p className="mt-1 text-base font-medium text-gray-900 dark:text-gray-600">{moneyFormatter(car.price)}</p>
                         </div>
                     </a>
                 ))}

@@ -1,6 +1,7 @@
 import { ImageSlider } from "@/shared/UI/slider/slider";
 import { ROUTES } from "@/shared/constants/routes";
 import { AVAILABLE_TYPE, RESERVED_TYPE, SOLD_TYPE } from "@/shared/constants/types";
+import { moneyFormatter } from "@/shared/helpers/formatters";
 import { ICar } from "@/shared/types/api-types";
 import clsx from "clsx";
 import React from "react";
@@ -34,7 +35,7 @@ export const AllCarsList: React.FC<AllCarsListProps> = ({
                         <div className="flex justify-between">
                             <div className="flex flex-col">
                                 <h3 className="mt-4 text-lg text-gray-700 dark:text-gray-200">{car.brand + ' ' + car.model}</h3>
-                                <p className="mt-1 text-base font-medium text-gray-900 dark:text-gray-600">{car.price}</p>
+                                <p className="mt-1 text-base font-medium text-gray-900 dark:text-gray-600">{moneyFormatter(car.price)}</p>
                             </div>
                             <h3 className="mt-4 text-lg text-gray-700 dark:text-gray-200"><span className="text-gray-900 dark:text-gray-600">VIN:</span> {car.vin}</h3>
                         </div>
