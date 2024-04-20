@@ -1,6 +1,7 @@
 import { carsApi } from "@/app/services/carsApi";
 import { selectAllTypes } from "@/app/store/reducers/TypesSlice";
-import { showLoginToast } from "@/shared/UI/loginRequireToast/loginRequireToast";
+import { selectIsAdmin } from "@/app/store/reducers/UserSlice";
+import { showLoginToast } from "@/shared/UI/customToasts/loginRequireToast";
 import { ROUTES } from "@/shared/constants/routes";
 import { isAuthenticated } from "@/shared/helpers/authHelpers";
 import { useSelector } from "react-redux";
@@ -12,6 +13,8 @@ export const useOneCar = () => {
     carsApi.useGetOneCarQuery(id);
     const types = useSelector(selectAllTypes)
     const navigate = useNavigate()
+
+    const isAdmin = useSelector(selectIsAdmin)
 
     const getCarTypesNames = () => {
         if (!oneCar || !types) return {};
@@ -45,7 +48,8 @@ export const useOneCar = () => {
         models: {
             oneCar,
             types: getCarTypesNames(),
-            isLoading
+            isLoading,
+            isAdmin
         },
         commands: {
             navigateToBuyForm

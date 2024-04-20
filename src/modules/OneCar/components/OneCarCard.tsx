@@ -11,9 +11,10 @@ interface OneCarCardProps {
     car: ICar | undefined
     types: any
     buyCar: (id: number) => void
+    isAdmin: boolean
 }
 
-export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar }) => {
+export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAdmin }) => {
     return (
         <div className=" max-w-fit mx-auto">
             {car &&
@@ -46,7 +47,7 @@ export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar }) =>
                         <span className="flex items-center">Fuel: <span className="ml-4 text-gray-900 dark:text-gray-600">{types.fuelType}</span></span>
                         <span className="flex items-center">VIN: <span className="ml-4 text-gray-900 dark:text-gray-600">{car.vin}</span></span>
                     </div>
-                    {car.status_id === AVAILABLE_TYPE && (
+                    {car.status_id === AVAILABLE_TYPE && !isAdmin && (
                         <div className="text-gray-900 dark:text-gray-600 text-2xl py-8 text-center">
                             Are you want to buy this car? <button className="border-none text-purple-400 hover:text-purple-500 duration-200" onClick={() => buyCar(car.id)}>Go to buy form</button>
                         </div>

@@ -9,7 +9,7 @@ export const OneCar = () => {
     return(
         <Layout>
             <section className="w-full dark:bg-dark-bg py-3 md:py-8 px-4 md:px-16">
-                <OneCarCard car={models.oneCar} types={models.types} buyCar={commands.navigateToBuyForm}/>
+                <OneCarCard car={models.oneCar} types={models.types} buyCar={commands.navigateToBuyForm} isAdmin={models.isAdmin}/>
             </section>
         </Layout>
     )

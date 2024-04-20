@@ -59,6 +59,36 @@ export interface IBuyCarRequest {
   address: string;
 }
 
+export interface IAddCarRequest {
+  year: number;
+  color: string;
+  engine_type_id: number;
+	engine_capacity: number;
+	fuel_id: number;
+	gearbox_type_id: number;
+	drive_unit_id: number;
+	vin: string;
+	price: number;
+	horse_power: number;
+  brand_id: number;
+	model_id: number;
+}
+
+export interface IAddCarRequestErrors {
+  year: string;
+  color: string;
+  engine_type_id: string;
+	engine_capacity: string;
+	fuel_id: string;
+	gearbox_type_id: string;
+	drive_unit_id: string;
+	vin: string;
+	price: string;
+	horse_power: string;
+  brand_id: string;
+	model_id: string;
+}
+
 export interface IClient {
   id: number;
   full_name: string;

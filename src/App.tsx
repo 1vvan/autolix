@@ -20,6 +20,7 @@ import { setUser } from './app/store/reducers/UserSlice';
 import { setTypesState } from './app/store/reducers/TypesSlice';
 import { setCarsModelsState } from './app/store/reducers/CarsSlice';
 import { Loader } from './shared/UI/loader/loader';
+import { AddCar } from './modules/AddCar/AddCar';
 
 const PrivateRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" />;
@@ -33,6 +34,11 @@ const AdminRoute = ({ children }) => {
 
 const HomeRoute = () => {
   const isAdmin = useIsAdmin();
+
+  return isAdmin ? ( isAuthenticated() ?  <AllCars/> : <Navigate to="/login" /> ) :  <AvailableCars/>; 
+}
+
+function App() {
   const dispatch = useDispatch();
 
   const userId = localStorage.getItem('userId');
@@ -54,16 +60,17 @@ const HomeRoute = () => {
 
   const isLoading = isLoadingUser || isLoadingTypes || isLoadingModels;
 
-  return isAdmin ? ( isAuthenticated() ?  <AllCars/> : <Navigate to="/login" /> ) : (isLoading ? <Loader isFull/> : <AvailableCars/>); 
-}
+  if(isLoading){
+    return <Loader isFull/>
+  }
 
-function App() {
   return (
       <BrowserRouter>
         <Routes>
           <Route path={ROUTES.cars.path} element={<HomeRoute/>}/>
           <Route path={ROUTES.one_car.path+'/:id'} element={<OneCar/>}/>
           <Route path={ROUTES.buy_car.path+'/:carId'} element={<PrivateRoute><BuyCar/></PrivateRoute> }/>
+          <Route path={ROUTES.add_car.path} element={<PrivateRoute><AddCar/></PrivateRoute> }/>
           <Route path={ROUTES.user_purchases.path} element={<PrivateRoute><UserPurchases/></PrivateRoute> }/>
           <Route path={ROUTES.clients.path} element={<AdminRoute><Clients/></AdminRoute> }/>
           <Route path={ROUTES.sales.path} element={<AdminRoute><Sales/></AdminRoute> }/>

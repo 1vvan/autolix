@@ -11,6 +11,10 @@ export const ROUTES = {
         path: '/buy-car',
         title: 'Buy car'
     },
+    add_car:{
+        path: '/add-car',
+        title: 'Add car'
+    },
     login: {
         path: '/login',
         title: 'Login'
