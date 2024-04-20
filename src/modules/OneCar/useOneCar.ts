@@ -6,11 +6,13 @@ import { ROUTES } from "@/shared/constants/routes";
 import { isAuthenticated } from "@/shared/helpers/authHelpers";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const useOneCar = () => {
     const { id } = useParams();
     const { data: oneCar, isLoading } =
     carsApi.useGetOneCarQuery(id);
+    const [deleteCar] = carsApi.useDeleteCarMutation();
     const types = useSelector(selectAllTypes)
     const navigate = useNavigate()
 
@@ -44,6 +46,19 @@ export const useOneCar = () => {
         }
     }
 
+    const handleDeleteCar = (carId) => {
+        deleteCar(carId)
+            .unwrap()
+            .then(() => {
+                navigate(ROUTES.cars.path)
+                toast.success('Car deleted successfully');
+            })
+            .catch((error) => {
+                console.error('Failed to delete car:', error);
+                toast.error('Failed to delete car. Please try again.');
+            });
+    }
+
     return {
         models: {
             oneCar,
@@ -52,7 +67,8 @@ export const useOneCar = () => {
             isAdmin
         },
         commands: {
-            navigateToBuyForm
+            navigateToBuyForm,
+            handleDeleteCar
         },
       };
 }

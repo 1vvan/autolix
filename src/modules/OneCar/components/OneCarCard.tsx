@@ -1,24 +1,40 @@
 import { hpToKw } from "@/shared/helpers/hpToKw";
 import { ICar } from "@/shared/types/api-types";
-import React from "react";
+import React, { useState } from "react";
 import { clsx } from 'clsx';
 import { AVAILABLE_TYPE, ELECTRIC_FUEL_TYPE, RESERVED_TYPE, SOLD_TYPE } from "@/shared/constants/types";
 import Moment from "react-moment";
 import { ImageSlider } from "@/shared/UI/slider/slider";
 import { moneyFormatter } from "@/shared/helpers/formatters";
+import { DeleteConfirmModal } from "@/shared/modals/deleteConfirmModal";
 
 interface OneCarCardProps {
     car: ICar | undefined
     types: any
     buyCar: (id: number) => void
     isAdmin: boolean
+    handleDeleteCar: (carId: number) => void;
 }
 
-export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAdmin }) => {
+export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAdmin, handleDeleteCar }) => {
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    
     return (
         <div className=" max-w-fit mx-auto">
             {car &&
                 <>
+                    {isAdmin && (
+                        <div className="w-full flex gap-2 items-center justify-end pb-3">
+                            <button 
+                                onClick={() => setShowDeleteModal(true)}
+                                type="button" 
+                                className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                            >Delete Car</button>
+                            <DeleteConfirmModal showModal={showDeleteModal} setShowModal={setShowDeleteModal} title="Delete Car" onSave={() => handleDeleteCar(car.id)}>
+                                <p className="text-gray-700 dark:text-gray-200">Are you sure want to delete car?</p>
+                            </DeleteConfirmModal>
+                        </div>
+                    )}
                     <div className="overflow-hidden rounded-lg relative">
                         {car.images.length > 1 ? (
                             <ImageSlider images={car.images} />
