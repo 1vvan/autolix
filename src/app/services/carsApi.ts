@@ -1,4 +1,4 @@
-import { IAllCarsModels, IBuyCarRequest, ICar, IGetAllCarsRequest} from "@/shared/types/api-types";
+import { IBuyCarRequest, ICar, ICarUpdateRequest, IGetAllCarsRequest} from "@/shared/types/api-types";
 import { api } from "./api";
 
 export const carsApi = api.injectEndpoints({
@@ -11,6 +11,7 @@ export const carsApi = api.injectEndpoints({
     }),
     getOneCar: builder.query<ICar, number | string | undefined>({
       query: (carId) => ({ url: `/autos/${carId}` }),
+      providesTags: result => ['OneCar']
     }),
     getAllCars: builder.query<ICar[], IGetAllCarsRequest>({
       query: (params: IGetAllCarsRequest) => ({
@@ -39,14 +40,19 @@ export const carsApi = api.injectEndpoints({
         body: formData,
       }),
     }),
-    getCarsModels: builder.query<IAllCarsModels, void>({
-      query: () => ({ url: `/autos-models` }),
-    }),
     deleteCar: builder.mutation<void, number>({
       query: (carId) => ({
         url: `/autos/${carId}/delete`,
         method: 'DELETE',
       }),
+    }),
+    updateCar: builder.mutation<void, ICarUpdateRequest>({
+      query: (updateCarRequest) => ({
+        url: `/autos/update`,
+        method: 'PUT',
+        body: updateCarRequest,
+      }),
+      invalidatesTags: ['OneCar']
     }),    
   }),
 });
@@ -55,8 +61,8 @@ export const {
   useGetAvailableCarsQuery,
   useGetOneCarQuery,
   useGetAllCarsQuery,
-  useGetCarsModelsQuery,
   useBuyCarMutation,
   useAddCarMutation,
-  useDeleteCarMutation
+  useDeleteCarMutation,
+  useUpdateCarMutation
 } = carsApi;

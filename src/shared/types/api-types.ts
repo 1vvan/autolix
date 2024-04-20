@@ -3,6 +3,8 @@ import { IUser } from "./IUser";
 export interface ICar {
     id: number;
     brand: string;
+    brand_id?: number;
+    model_id?: number;
     model: string;
     year: number;
     color: string;
@@ -30,6 +32,7 @@ export interface IModels {
   id: number;
   name: string;
   brand_id: number;
+  brand_name?: string;
 }
 
 export interface IAllCarsModels {
@@ -58,6 +61,23 @@ export interface IBuyCarRequest {
   email: string;
   address: string;
 }
+
+export interface ICarUpdateRequest {
+  id: number;
+  model_id?: number;
+  year?: number;
+  color?: string;
+  engine_type_id?: number;
+  engine_capacity?: number;
+  fuel_id?: number;
+  gearbox_type_id?: number;
+  drive_unit_id?: number;
+  vin?: string;
+  price?: number;
+  status_id?: number;
+  horse_power?: number;
+}
+
 
 export interface IAddCarRequest {
   year: number;

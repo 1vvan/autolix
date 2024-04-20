@@ -15,6 +15,10 @@ export const ROUTES = {
         path: '/add-car',
         title: 'Add car'
     },
+    edit_models:{
+        path: '/edit-models',
+        title: 'Edit Models'
+    },
     login: {
         path: '/login',
         title: 'Login'

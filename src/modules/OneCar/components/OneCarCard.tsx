@@ -7,6 +7,10 @@ import Moment from "react-moment";
 import { ImageSlider } from "@/shared/UI/slider/slider";
 import { moneyFormatter } from "@/shared/helpers/formatters";
 import { DeleteConfirmModal } from "@/shared/modals/deleteConfirmModal";
+import { EditCarModal } from "./EditCarModal";
+import { Icon } from "@/shared/UI/icon/icon";
+import { ICON_COLLECTION } from "@/shared/UI/icon/icon-list";
+import { useTheme } from "@/shared/theme-context/theme-context";
 
 interface OneCarCardProps {
     car: ICar | undefined
@@ -14,34 +18,26 @@ interface OneCarCardProps {
     buyCar: (id: number) => void
     isAdmin: boolean
     handleDeleteCar: (carId: number) => void;
+    editOptions: any;
+    onSaveEditedCar: () => void;
+    changeParam: (key: keyof ICar, value: number | string) => void;
 }
 
-export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAdmin, handleDeleteCar }) => {
+export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAdmin, handleDeleteCar, editOptions, onSaveEditedCar, changeParam }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const { theme } = useTheme()
     
     return (
         <div className=" max-w-fit mx-auto">
             {car &&
                 <>
-                    {isAdmin && (
-                        <div className="w-full flex gap-2 items-center justify-end pb-3">
-                            <button 
-                                onClick={() => setShowDeleteModal(true)}
-                                type="button" 
-                                className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                            >Delete Car</button>
-                            <DeleteConfirmModal showModal={showDeleteModal} setShowModal={setShowDeleteModal} title="Delete Car" onSave={() => handleDeleteCar(car.id)}>
-                                <p className="text-gray-700 dark:text-gray-200">Are you sure want to delete car?</p>
-                            </DeleteConfirmModal>
-                        </div>
-                    )}
                     <div className="overflow-hidden rounded-lg relative">
                         {car.images.length > 1 ? (
                             <ImageSlider images={car.images} />
                         ) : (
                             <img src={car.images[0]} alt="" className="w-full" />
                         )}
-                        <div className={clsx("absolute top-2 right-2 py-1 px-2 border-2 rounded-md font-bold", {
+                        <div className={clsx("absolute top-4 right-36 py-1 px-2 border-2 rounded-md font-bold", {
                             'border-green-600 bg-green-500 text-green-900': car.status_id === AVAILABLE_TYPE,
                             'border-red-600 bg-red-500 text-red-900': car.status_id === SOLD_TYPE,
                             'border-yellow-600 bg-yellow-500 text-yellow-900': car.status_id === RESERVED_TYPE,
@@ -50,6 +46,25 @@ export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAd
                             {car.status_id === (SOLD_TYPE || RESERVED_TYPE) && ` at: `}
                             {car.status_id === (SOLD_TYPE || RESERVED_TYPE) && <Moment date={car.status_changed_at} format="YYYY-MM-DD HH:MM" />}
                         </div>
+                        {isAdmin && (
+                            <div className="w-full flex gap-3 items-center justify-end pb-3 absolute top-2 right-2">
+                                <div>
+                                    <button
+                                        className='border border-violet-500 pt-1 px-2 rounded-lg bg-white dark:bg-dark-bg hover:border-violet-300 duration-300'
+                                        onClick={() => setShowDeleteModal(true)}
+                                    >
+                                        <Icon
+                                            icon={ICON_COLLECTION.trash}
+                                            iconColor={theme === "dark" ? "#fff" : "#000"}
+                                        />
+                                    </button>
+                                    <DeleteConfirmModal showModal={showDeleteModal} setShowModal={setShowDeleteModal} title="Delete Car" onSave={() => handleDeleteCar(car.id)}>
+                                        <p className="text-gray-700 dark:text-gray-200">Are you sure want to delete car?</p>
+                                    </DeleteConfirmModal>
+                                </div>
+                                <EditCarModal title={`Edit ${car.brand} ${car.model} (VIN: ${car.vin})`} editOptions={editOptions} onSaveCar={onSaveEditedCar}  car={car} changeParam={changeParam}/>
+                            </div>
+                        )}
                     </div>
                     <div className="flex justify-between items-center mt-4 px-3">
                         <h2 className="text-4xl text-gray-700 dark:text-gray-200">{car.brand + ' ' + car.model} <span className="ml-3 text-3xl text-gray-900 dark:text-gray-600">{car.year}</span></h2>
