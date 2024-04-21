@@ -37,8 +37,10 @@ export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAd
                     <div className="overflow-hidden rounded-lg relative">
                         {car.images.length > 1 ? (
                             <ImageSlider images={car.images} />
-                        ) : (
+                        ) : car.images.length === 1 ? (
                             <img src={car.images[0].path} alt="" className="w-full" />
+                        ) : (
+                            <div className="text-gray-700 dark:text-gray-200 text-center p-24">No images</div>
                         )}
                         <div className={clsx("absolute py-1 px-2 border-2 rounded-md font-bold", {
                             'border-green-600 bg-green-500 text-green-900': car.status_id === AVAILABLE_TYPE,

@@ -19,8 +19,10 @@ export const AvailableCarsList: React.FC<AvailableCarsListProps> = ({
                         <div className="w-full overflow-hidden rounded-lg">
                             {car.images.length > 1 ? (
                                 <ImageSlider images={car.images} />
-                            ) : (
+                            ) : car.images.length === 1 ? (
                                 <img src={car.images[0].path} alt="" className="w-full" />
+                            ) : (
+                                <div className="text-gray-700 dark:text-gray-200 text-center p-12">No images</div>
                             )}
                         </div>
                         <div className="flex flex-col">
