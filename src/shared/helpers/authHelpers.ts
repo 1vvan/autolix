@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { ROUTES } from "../constants/routes";
 import { selectIsAdmin } from "@/app/store/reducers/UserSlice";
 
-export const openEndpoints = ['fetchLogin', 'fetchRegister', 'getUser', 'getOneCar', 'getAvailableCars', 'getTypes'];
+export const openEndpoints = ['fetchLogin', 'fetchRegister', 'getUser', 'getOneCar', 'getAvailableCars', 'getTypes', 'getCarsAllModels'];
 
 export const isAuthenticated = () => {
     const accessToken = localStorage.getItem("token");
