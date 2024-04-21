@@ -20,7 +20,7 @@ import { setTypesState } from './app/store/reducers/TypesSlice';
 import { setCarsModelsState } from './app/store/reducers/CarsSlice';
 import { Loader } from './shared/UI/loader/loader';
 import { AddCar } from './modules/AddCar/AddCar';
-import { EditModels } from './modules/EditModels/EditModels';
+import { EditModels } from './modules/Models/EditModels';
 import { modelsApi } from './app/services/modelsApi';
 
 const PrivateRoute = ({ children }) => {

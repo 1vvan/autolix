@@ -1,6 +1,9 @@
+import { Icon } from "@/shared/UI/icon/icon";
+import { ICON_COLLECTION } from "@/shared/UI/icon/icon-list";
+import { DeleteConfirmModal } from "@/shared/modals/deleteConfirmModal";
 import { EditBrandsModal } from "@/shared/modals/editBrandsModal";
 import { IBrands } from "@/shared/types/api-types";
-import React from "react";
+import React, { useState } from "react";
 
 interface AddCarBrandProps {
     brands: IBrands[];
@@ -9,9 +12,26 @@ interface AddCarBrandProps {
     setShowModal: (boolean) => void;
     onChange: (e: any) => void;
     isDisabled: boolean;
+    handleDeleteBrand: (brandId: number, brandName: string) => void;
 }
 
-export const AddCarBrand: React.FC<AddCarBrandProps> = ({ brands, handleAddBrand, showModal, setShowModal, onChange, isDisabled }) => {
+export const AddCarBrand: React.FC<AddCarBrandProps> = ({ brands, handleAddBrand, showModal, setShowModal, onChange, isDisabled, handleDeleteBrand }) => {
+    const [showDeleteModal, setShowDeleteModal] = useState({});
+
+    const handleShowDeleteModal = (id) => {
+        setShowDeleteModal(prev => ({
+            ...prev,
+            [id]: true
+        }));
+    };
+
+    const handleCloseDeleteModal = (id) => {
+        setShowDeleteModal(prev => ({
+            ...prev,
+            [id]: false
+        }));
+    };
+
     return (
         <div className="w-96 pt-6 border p-4 rounded-lg border-gray-400 dark:border-gray-700 h-full">
             <h6 className="text-gray-600 dark:text-gray-200 text-lg font-medium pb-6 text-center">Cars Brands</h6>
@@ -20,6 +40,7 @@ export const AddCarBrand: React.FC<AddCarBrandProps> = ({ brands, handleAddBrand
                     <tr className="bg-gray-400 dark:bg-gray-200">
                         <th className="px-4 py-2" style={{ width: '3%' }}>ID</th>
                         <th className="px-4 py-2 w-2/12">Name</th>
+                        <th className="px-4 py-2" style={{ width: '1%' }}></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +48,16 @@ export const AddCarBrand: React.FC<AddCarBrandProps> = ({ brands, handleAddBrand
                         <tr key={item.id} className="border-b border-gray-300 text-gray-600 dark:text-gray-200 bg-gray-200 dark:bg-transparent">
                             <td className="px-4 py-2 text-center">{item.id}</td>
                             <td className="px-4 py-2 text-center">{item.name}</td>
+                            <td className="px-4 py-2 text-center">
+                                <button
+                                    className="p-0.5 rounded-lg bg-white dark:bg-dark-bg flex items-center justify-center"
+                                    onClick={() => handleShowDeleteModal(item.id)}>
+                                    <Icon icon={ICON_COLLECTION.trash} iconSize="24px" iconColor="#ff0000" />
+                                </button>
+                                <DeleteConfirmModal showModal={showDeleteModal[item.id]} setShowModal={() => handleCloseDeleteModal(item.id)} title={`Delete brand '${item.name}'`} onSave={() => {handleDeleteBrand(item.id, item.name); handleCloseDeleteModal(item.id) }}>
+                                    <p className="text-gray-700 dark:text-gray-200">Are you sure want to delete this brand?</p>
+                                </DeleteConfirmModal>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

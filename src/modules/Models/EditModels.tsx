@@ -16,7 +16,8 @@ export const EditModels = () => {
                     showModal={models.showAddBrandModal}
                     setShowModal={commands.setShowAddBrandModal}
                     onChange={commands.handleChangeBrandName} 
-                    isDisabled={models.isAddBrandDisabled}/>
+                    isDisabled={models.isAddBrandDisabled}
+                    handleDeleteBrand={commands.handleDeleteBrand}/>
                 <AddCarModels 
                     models={models.models} 
                     handleAddModel={commands.handleAddModel}
@@ -25,7 +26,8 @@ export const EditModels = () => {
                     onChangeModel={commands.handleChangeModelName} 
                     onChangeBrand={commands.handleChangeBrandForModel} 
                     options={models.brandsOptions}
-                    isDisabled={models.isAddModelDisabled}/>
+                    isDisabled={models.isAddModelDisabled}
+                    handleDeleteModel={commands.handleDeleteModel}/>
             </section>
         </Layout>
     )

@@ -23,11 +23,27 @@ export const modelsApi = api.injectEndpoints({
             }),
             invalidatesTags: ['CarsModels']
         }),
+        deleteModel: builder.mutation<void, number>({
+            query: (modelId) => ({
+                url: `/models/${modelId}/delete`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['CarsModels']
+        }),
+        deleteBrand: builder.mutation<void, number>({
+            query: (brandId) => ({
+                url: `/brands/${brandId}/delete`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['CarsModels']
+        }),
     }),
 });
 
 export const {
     useGetCarsAllModelsQuery,
     useAddBrandMutation,
-    useAddModelMutation
+    useAddModelMutation,
+    useDeleteBrandMutation,
+    useDeleteModelMutation
 } = modelsApi;

@@ -11,11 +11,13 @@ export const useEditModels = () => {
     const [showAddBrandModal, setShowAddBrandModal] = useState(false)
     const [addBrandName, setAddBrandName] = useState('')
     const [addBrand] = modelsApi.useAddBrandMutation();
+    const [deleteBrand] = modelsApi.useDeleteBrandMutation();
 
     const [showAddModelModal, setShowAddModelModal] = useState(false)
     const [addModelName, setAddModelName] = useState('')
     const [addModelSelectedBrand, setAddModelSelectedBrand] = useState()
     const [addModel] = modelsApi.useAddModelMutation();
+    const [deleteModel] = modelsApi.useDeleteModelMutation();
 
     const enrichModelsWithBrandName = () => {
         const modelsWithBrandName = allModels.models.map(model => {
@@ -36,7 +38,6 @@ export const useEditModels = () => {
     }
     const handleAddModel = async () => {
         try {
-            console.log(addModelName, addModelSelectedBrand)
             if(addModelName && addModelSelectedBrand){
                 await addModel({brand_id: addModelSelectedBrand, name: addModelName}).then(() => {
                     toast.success(`Model ${addModelName} was added successfully`);
@@ -48,6 +49,13 @@ export const useEditModels = () => {
             toast.error('Failed to add brand. Please try again.');
         }
     };
+
+    const handleDeleteModel = (modelId, modelName) => {
+        deleteModel(modelId)
+            .then(() => {
+                toast.success(`Model ${modelName} was deleted successfully!`)
+            })
+    }
 
     // Brands
     const handleChangeBrandName = (e) => {
@@ -66,15 +74,22 @@ export const useEditModels = () => {
         }
     };
 
+    const handleDeleteBrand = (brandId, brandName) => {
+        deleteBrand(brandId)
+            .then(() => {
+                toast.success(`Brand ${brandName} and his models was deleted successfully!`)
+            })
+    }
+
     return {
         models: {
             brands: allModels.brands,
             models: enrichModelsWithBrandName(),
             showAddBrandModal,
-            isAddBrandDisabled: !addBrandName || addBrandName.length < 4,
+            isAddBrandDisabled: !addBrandName || addBrandName.length < 3,
             showAddModelModal,
             brandsOptions,
-            isAddModelDisabled: !addModelName || addModelName.length < 4 || !addModelSelectedBrand
+            isAddModelDisabled: !addModelName || addModelName.length < 3 || !addModelSelectedBrand
         },
         commands: {
             handleAddBrand,
@@ -83,7 +98,9 @@ export const useEditModels = () => {
             setShowAddModelModal,
             handleChangeBrandForModel,
             handleChangeModelName,
-            handleAddModel
+            handleAddModel,
+            handleDeleteBrand,
+            handleDeleteModel
         },
     };
 }

@@ -13,7 +13,7 @@ export const Layout: React.FC<React.PropsWithChildren> = ({
         <ToastContainer
           limit={2}
           position="top-right"
-          autoClose={5000}
+          autoClose={4000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

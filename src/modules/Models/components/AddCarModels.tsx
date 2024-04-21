@@ -1,6 +1,9 @@
+import { Icon } from "@/shared/UI/icon/icon";
+import { ICON_COLLECTION } from "@/shared/UI/icon/icon-list";
+import { DeleteConfirmModal } from "@/shared/modals/deleteConfirmModal";
 import { EditBrandsModal } from "@/shared/modals/editBrandsModal";
 import { IModels } from "@/shared/types/api-types";
-import React from "react";
+import React, { useState } from "react";
 
 interface AddCarModelsProps {
     models: IModels[];
@@ -11,9 +14,26 @@ interface AddCarModelsProps {
     onChangeBrand: (e: any) => void;
     isDisabled: boolean;
     options: any;
+    handleDeleteModel: (modelId: number, modelName: string) => void;
 }
 
-export const AddCarModels: React.FC<AddCarModelsProps> = ({ models, handleAddModel, showModal, setShowModal, onChangeModel, onChangeBrand, isDisabled, options }) => {
+export const AddCarModels: React.FC<AddCarModelsProps> = ({ models, handleAddModel, showModal, setShowModal, onChangeModel, onChangeBrand, isDisabled, options, handleDeleteModel }) => {
+    const [showDeleteModal, setShowDeleteModal] = useState({});
+
+    const handleShowDeleteModal = (id) => {
+        setShowDeleteModal(prev => ({
+            ...prev,
+            [id]: true
+        }));
+    };
+
+    const handleCloseDeleteModal = (id) => {
+        setShowDeleteModal(prev => ({
+            ...prev,
+            [id]: false
+        }));
+    };
+
     return (
         <div className=" w-1/3 pt-6 border p-4 rounded-lg border-gray-400 dark:border-gray-700">
             <h6 className="text-gray-600 dark:text-gray-200 text-lg font-medium pb-6 text-center">Cars Models</h6>
@@ -23,6 +43,7 @@ export const AddCarModels: React.FC<AddCarModelsProps> = ({ models, handleAddMod
                         <th className="px-4 py-2" style={{ width: '3%' }}>ID</th>
                         <th className="px-4 py-2 w-2/12">Brand Name</th>
                         <th className="px-4 py-2 w-2/12">Model Name</th>
+                        <th className="px-4 py-2" style={{ width: '1%' }}></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +52,16 @@ export const AddCarModels: React.FC<AddCarModelsProps> = ({ models, handleAddMod
                             <td className="px-4 py-2 text-center">{item.id}</td>
                             <td className="px-4 py-2 text-center">{item.brand_name}</td>
                             <td className="px-4 py-2 text-center">{item.name}</td>
+                            <td className="px-4 py-2 text-center">
+                                <button
+                                    className="p-0.5 rounded-lg bg-white dark:bg-dark-bg flex items-center justify-center"
+                                    onClick={() => handleShowDeleteModal(item.id)}>
+                                    <Icon icon={ICON_COLLECTION.trash} iconSize="24px" iconColor="#ff0000" />
+                                </button>
+                                <DeleteConfirmModal showModal={showDeleteModal[item.id]} setShowModal={() => handleCloseDeleteModal(item.id)} title={`Delete model '${item.brand_name} ${item.name}'`} onSave={() => {handleDeleteModel(item.id, item.name); handleCloseDeleteModal(item.id) }}>
+                                    <p className="text-gray-700 dark:text-gray-200">Are you sure want to delete this model?</p>
+                                </DeleteConfirmModal>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
