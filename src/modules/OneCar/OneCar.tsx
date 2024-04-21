@@ -26,6 +26,7 @@ export const OneCar = () => {
                     onChangeNewImages={commands.onChangeNewImages}
                     handleUploadNewImages={commands.handleUploadNewImages}
                     isDisabledSaveCarImages={models.isDisabledSaveCarImages}
+                    isLoadingEditImage={models.isLoadingEditImage}
                     />
             </section>
         </Layout>

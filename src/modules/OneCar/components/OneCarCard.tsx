@@ -25,11 +25,12 @@ interface OneCarCardProps {
     onChangeNewImages: (any) => void;
     handleUploadNewImages: (carId: number) => void;
     isDisabledSaveCarImages: boolean
+    isLoadingEditImage: boolean
 }
 
-export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAdmin, handleDeleteCar, handleDeleteCarImage, editOptions, onSaveEditedCar, changeParam, onChangeNewImages, handleUploadNewImages, isDisabledSaveCarImages }) => {
+export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAdmin, handleDeleteCar, handleDeleteCarImage, editOptions, onSaveEditedCar, changeParam, onChangeNewImages, handleUploadNewImages, isDisabledSaveCarImages, isLoadingEditImage }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    
+
     return (
         <div className=" max-w-fit mx-auto">
             {car &&
@@ -55,8 +56,15 @@ export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAd
                         </div>
                         {isAdmin && (
                             <div className="w-full flex gap-3 items-center justify-end pb-3 absolute top-2 right-2">
-                                <EditCarModal title={`Edit ${car.brand} ${car.model} (VIN: ${car.vin})`} editOptions={editOptions} onSaveCar={onSaveEditedCar}  car={car} changeParam={changeParam}/>
-                                <EditCarImagesModal title={`Edit ${car.brand} ${car.model} (VIN: ${car.vin}) images.`} car={car} handleDeleteCarImage={handleDeleteCarImage} onChangeNewImages={onChangeNewImages} handleUploadNewImages={handleUploadNewImages} isDisabledSaveCarImages={isDisabledSaveCarImages}/>
+                                <EditCarModal title={`Edit ${car.brand} ${car.model} (VIN: ${car.vin})`} editOptions={editOptions} onSaveCar={onSaveEditedCar} car={car} changeParam={changeParam} />
+                                <EditCarImagesModal 
+                                    title={`Edit ${car.brand} ${car.model} (VIN: ${car.vin}) images.`} 
+                                    car={car} 
+                                    handleDeleteCarImage={handleDeleteCarImage} 
+                                    onChangeNewImages={onChangeNewImages} 
+                                    handleUploadNewImages={handleUploadNewImages} 
+                                    isDisabledSaveCarImages={isDisabledSaveCarImages} 
+                                    isLoadingEditImage={isLoadingEditImage} />
                                 <div>
                                     <button
                                         className='border border-violet-500 pt-1 px-2 rounded-lg bg-white dark:bg-dark-bg hover:border-violet-300 duration-300'

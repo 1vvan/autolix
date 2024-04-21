@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import React from "react";
+import { Loader } from "../loader/loader";
 
 interface ModalProps {
   showModal: boolean;
@@ -8,9 +9,10 @@ interface ModalProps {
   onSave: (any) => void;
   bodyClassNames: string;
   isDisabledSave?: boolean; 
+  isLoading?: boolean
 }
 
-export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ showModal, setShowModal, title, children, onSave, bodyClassNames, isDisabledSave }) => {
+export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ showModal, setShowModal, title, children, onSave, bodyClassNames, isDisabledSave, isLoading }) => {
   return (
     <>
       {showModal ? (
@@ -24,6 +26,7 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ showModal
                   <h3 className="text-3xl font-semibold text-black dark:text-gray-300">
                     {title}
                   </h3>
+                  {isLoading && <Loader/>}
                 </div>
                 <div className={clsx("relative p-6", bodyClassNames)}>
                   {children}

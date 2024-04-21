@@ -5,13 +5,12 @@ import { DeleteConfirmModal } from "@/shared/modals/deleteConfirmModal";
 import { useTheme } from "@/shared/theme-context/theme-context";
 import React, { useState } from "react";
 
-export const EditCarImagesModal = ({ title, car, handleDeleteCarImage, onChangeNewImages, handleUploadNewImages, isDisabledSaveCarImages }) => {
+export const EditCarImagesModal = ({ title, car, handleDeleteCarImage, onChangeNewImages, handleUploadNewImages, isDisabledSaveCarImages, isLoadingEditImage }) => {
     const [showModal, setShowModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const { theme } = useTheme()
 
     const onSave = () => {
-        setShowModal(false);
         handleUploadNewImages(car.id);
     }
 
@@ -26,7 +25,7 @@ export const EditCarImagesModal = ({ title, car, handleDeleteCarImage, onChangeN
                     iconColor={theme === "dark" ? "#fff" : "#000"}
                 />
             </button>
-            <Modal showModal={showModal} setShowModal={setShowModal} title={title} onSave={onSave} bodyClassNames={'flex flex-col gap-2'} isDisabledSave={isDisabledSaveCarImages}>
+            <Modal isLoading={isLoadingEditImage} showModal={showModal} setShowModal={setShowModal} title={title} onSave={onSave} bodyClassNames={'flex flex-col gap-2'} isDisabledSave={isDisabledSaveCarImages}>
                 <div className="grid grid-cols-3 gap-3">
                     {car.images.map((item) => (
                         <div key={item.id} className="w-96 relative">

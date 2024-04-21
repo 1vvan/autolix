@@ -18,8 +18,8 @@ export const useOneCar = () => {
     const {data: carsModels, isLoading: isLoadingModels} = modelsApi.useGetCarsAllModelsQuery();
     const [deleteCar] = carsApi.useDeleteCarMutation();
     const [editCar] = carsApi.useUpdateCarMutation();
-    const [deleteCarImage] = carsApi.useDeleteCarImageMutation();
-    const [uploadNewImages] = carsApi.useAddCarPhotosMutation();
+    const [deleteCarImage, {isLoading: isLoadingImageDelete}] = carsApi.useDeleteCarImageMutation();
+    const [uploadNewImages, {isLoading: isLoadingNewImage}] = carsApi.useAddCarPhotosMutation();
     
     const types = useSelector(selectAllTypes)
     const navigate = useNavigate()
@@ -150,6 +150,7 @@ export const useOneCar = () => {
     }
 
     const isLoading = isLoadingCar || isLoadingModels;
+    const isLoadingEditImage = isLoadingNewImage || isLoadingImageDelete;
 
     return {
         models: {
@@ -158,7 +159,8 @@ export const useOneCar = () => {
             isLoading,
             isAdmin,
             editOptions,
-            isDisabledSaveCarImages
+            isDisabledSaveCarImages,
+            isLoadingEditImage
         },
         commands: {
             navigateToBuyForm,

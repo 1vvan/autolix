@@ -8,12 +8,12 @@ interface LoaderProps {
 
 export const Loader: React.FC<LoaderProps> = ({isFull = false}) => {
     return(
-        <div className={clsx("w-full dark:bg-dark-bg flex items-center justify-center", {
-            'h-screen': isFull
+        <div className={clsx("flex items-center justify-center", {
+            'h-screen dark:bg-dark-bg w-full': isFull
         })}>
             <Oval
-            height="80"
-            width="80"
+            height={isFull ? "80" : '32'}
+            width={isFull ? "80" : '32'}
             color="purple"
             />
         </div>
