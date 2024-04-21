@@ -18,9 +18,14 @@ export interface ICar {
     status_id: number;
     status_name?: string;
     created_at: string;
-    images: string[];
+    images: ICarImages[];
     horse_power: number | string;
     status_changed_at: string;
+}
+
+interface ICarImages {
+  id: number;
+  path: string;
 }
 
 export interface IBrands {

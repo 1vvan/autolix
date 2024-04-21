@@ -7,9 +7,10 @@ interface ModalProps {
   title: string;
   onSave: (any) => void;
   bodyClassNames: string;
+  isDisabledSave?: boolean; 
 }
 
-export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ showModal, setShowModal, title, children, onSave, bodyClassNames }) => {
+export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ showModal, setShowModal, title, children, onSave, bodyClassNames, isDisabledSave }) => {
   return (
     <>
       {showModal ? (
@@ -17,7 +18,7 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ showModal
           <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
-            <div className="relative w-auto my-6 mx-auto max-w-3xl ">
+            <div className="relative w-auto my-6 mx-auto ">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white dark:bg-dark-border outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-200 dark:border-gray-700  rounded-t">
                   <h3 className="text-3xl font-semibold text-black dark:text-gray-300">
@@ -36,7 +37,10 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ showModal
                     Close
                   </button>
                   <button
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className={clsx("bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150", {
+                      'opacity-50': isDisabledSave
+                    })}
+                    disabled={isDisabledSave}
                     type="button"
                     onClick={onSave}
                   >

@@ -20,7 +20,7 @@ export const AvailableCarsList: React.FC<AvailableCarsListProps> = ({
                             {car.images.length > 1 ? (
                                 <ImageSlider images={car.images} />
                             ) : (
-                                <img src={car.images[0]} alt="" className="w-full" />
+                                <img src={car.images[0].path} alt="" className="w-full" />
                             )}
                         </div>
                         <div className="flex flex-col">

@@ -20,8 +20,12 @@ export const OneCar = () => {
                     buyCar={commands.navigateToBuyForm}
                     isAdmin={models.isAdmin}
                     handleDeleteCar={commands.handleDeleteCar} 
+                    handleDeleteCarImage={commands.handleDeleteCarImage}
                     onSaveEditedCar={commands.handleEditCar}
                     changeParam={commands.changeParam}
+                    onChangeNewImages={commands.onChangeNewImages}
+                    handleUploadNewImages={commands.handleUploadNewImages}
+                    isDisabledSaveCarImages={models.isDisabledSaveCarImages}
                     />
             </section>
         </Layout>

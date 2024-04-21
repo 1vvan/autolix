@@ -22,7 +22,7 @@ export const AllCarsList: React.FC<AllCarsListProps> = ({
                             {car.images.length > 1 ? (
                                 <ImageSlider images={car.images} />
                             ) : (
-                                <img src={car.images[0]} alt="" className="w-full" />
+                                <img src={car.images[0].path} alt="" className="w-full" />
                             )}
                             <div className={clsx("absolute top-2 right-2 py-1 px-2 border-2 rounded-md font-bold", {
                                 'border-green-600 bg-green-500 text-green-900': car.status_id === AVAILABLE_TYPE,

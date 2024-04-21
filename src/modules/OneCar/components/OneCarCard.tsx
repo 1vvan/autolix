@@ -10,7 +10,7 @@ import { DeleteConfirmModal } from "@/shared/modals/deleteConfirmModal";
 import { EditCarModal } from "./EditCarModal";
 import { Icon } from "@/shared/UI/icon/icon";
 import { ICON_COLLECTION } from "@/shared/UI/icon/icon-list";
-import { useTheme } from "@/shared/theme-context/theme-context";
+import { EditCarImagesModal } from "./EditCarImagesModal";
 
 interface OneCarCardProps {
     car: ICar | undefined
@@ -18,14 +18,17 @@ interface OneCarCardProps {
     buyCar: (id: number) => void
     isAdmin: boolean
     handleDeleteCar: (carId: number) => void;
+    handleDeleteCarImage: (imgId: number) => void;
     editOptions: any;
     onSaveEditedCar: () => void;
     changeParam: (key: keyof ICar, value: number | string) => void;
+    onChangeNewImages: (any) => void;
+    handleUploadNewImages: (carId: number) => void;
+    isDisabledSaveCarImages: boolean
 }
 
-export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAdmin, handleDeleteCar, editOptions, onSaveEditedCar, changeParam }) => {
+export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAdmin, handleDeleteCar, handleDeleteCarImage, editOptions, onSaveEditedCar, changeParam, onChangeNewImages, handleUploadNewImages, isDisabledSaveCarImages }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const { theme } = useTheme()
     
     return (
         <div className=" max-w-fit mx-auto">
@@ -35,12 +38,14 @@ export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAd
                         {car.images.length > 1 ? (
                             <ImageSlider images={car.images} />
                         ) : (
-                            <img src={car.images[0]} alt="" className="w-full" />
+                            <img src={car.images[0].path} alt="" className="w-full" />
                         )}
-                        <div className={clsx("absolute top-4 right-36 py-1 px-2 border-2 rounded-md font-bold", {
+                        <div className={clsx("absolute py-1 px-2 border-2 rounded-md font-bold", {
                             'border-green-600 bg-green-500 text-green-900': car.status_id === AVAILABLE_TYPE,
                             'border-red-600 bg-red-500 text-red-900': car.status_id === SOLD_TYPE,
                             'border-yellow-600 bg-yellow-500 text-yellow-900': car.status_id === RESERVED_TYPE,
+                            'right-2 top-2': !isAdmin,
+                            'right-52 top-4': isAdmin
                         })}>
                             {types.statusType}
                             {car.status_id === (SOLD_TYPE || RESERVED_TYPE) && ` at: `}
@@ -48,6 +53,8 @@ export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAd
                         </div>
                         {isAdmin && (
                             <div className="w-full flex gap-3 items-center justify-end pb-3 absolute top-2 right-2">
+                                <EditCarModal title={`Edit ${car.brand} ${car.model} (VIN: ${car.vin})`} editOptions={editOptions} onSaveCar={onSaveEditedCar}  car={car} changeParam={changeParam}/>
+                                <EditCarImagesModal title={`Edit ${car.brand} ${car.model} (VIN: ${car.vin}) images.`} car={car} handleDeleteCarImage={handleDeleteCarImage} onChangeNewImages={onChangeNewImages} handleUploadNewImages={handleUploadNewImages} isDisabledSaveCarImages={isDisabledSaveCarImages}/>
                                 <div>
                                     <button
                                         className='border border-violet-500 pt-1 px-2 rounded-lg bg-white dark:bg-dark-bg hover:border-violet-300 duration-300'
@@ -55,14 +62,13 @@ export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAd
                                     >
                                         <Icon
                                             icon={ICON_COLLECTION.trash}
-                                            iconColor={theme === "dark" ? "#fff" : "#000"}
+                                            iconColor={'#ff0000'}
                                         />
                                     </button>
                                     <DeleteConfirmModal showModal={showDeleteModal} setShowModal={setShowDeleteModal} title="Delete Car" onSave={() => handleDeleteCar(car.id)}>
                                         <p className="text-gray-700 dark:text-gray-200">Are you sure want to delete car?</p>
                                     </DeleteConfirmModal>
                                 </div>
-                                <EditCarModal title={`Edit ${car.brand} ${car.model} (VIN: ${car.vin})`} editOptions={editOptions} onSaveCar={onSaveEditedCar}  car={car} changeParam={changeParam}/>
                             </div>
                         )}
                     </div>

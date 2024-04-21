@@ -39,7 +39,7 @@ export const ImageSlider = ({ images }) => {
         <Slider {...settings}>
             {images.map((image, index) => (
                 <div key={index} className="w-full">
-                    <img src={image} alt={`Slide ${index}`} style={{ width: "100%", display: "block" }}/>
+                    <img src={image.path} alt={`Slide ${index}`} style={{ width: "100%", display: "block" }}/>
                 </div>
             ))}
         </Slider>

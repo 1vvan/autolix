@@ -33,13 +33,6 @@ export const carsApi = api.injectEndpoints({
         body: addCarRequest,
       }),
     }),
-    addCarPhotos: builder.mutation<void, { carId: number, formData: FormData }>({
-      query: ({ carId, formData }) => ({
-        url: `/autos/${carId}/images`,
-        method: 'POST',
-        body: formData,
-      }),
-    }),
     deleteCar: builder.mutation<void, number>({
       query: (carId) => ({
         url: `/autos/${carId}/delete`,
@@ -54,6 +47,21 @@ export const carsApi = api.injectEndpoints({
       }),
       invalidatesTags: ['OneCar']
     }),    
+    addCarPhotos: builder.mutation<void, { carId: number, formData: FormData }>({
+      query: ({ carId, formData }) => ({
+        url: `/autos/${carId}/images`,
+        method: 'POST',
+        body: formData,
+      }),
+      invalidatesTags: ['OneCar']
+    }),
+    deleteCarImage: builder.mutation<void, number>({
+      query: (imgId) => ({
+        url: `/autos/images/${imgId}/delete`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['OneCar']
+    }),
   }),
 });
 
@@ -64,5 +72,7 @@ export const {
   useBuyCarMutation,
   useAddCarMutation,
   useDeleteCarMutation,
-  useUpdateCarMutation
+  useAddCarPhotosMutation,
+  useUpdateCarMutation,
+  useDeleteCarImageMutation,
 } = carsApi;

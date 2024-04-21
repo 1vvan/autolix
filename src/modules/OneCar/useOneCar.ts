@@ -18,6 +18,8 @@ export const useOneCar = () => {
     const {data: carsModels, isLoading: isLoadingModels} = modelsApi.useGetCarsAllModelsQuery();
     const [deleteCar] = carsApi.useDeleteCarMutation();
     const [editCar] = carsApi.useUpdateCarMutation();
+    const [deleteCarImage] = carsApi.useDeleteCarImageMutation();
+    const [uploadNewImages] = carsApi.useAddCarPhotosMutation();
     
     const types = useSelector(selectAllTypes)
     const navigate = useNavigate()
@@ -43,6 +45,7 @@ export const useOneCar = () => {
         };
     }
 
+    // edit car
     const [tempEditData, setTempEditData] = useState<Partial<ICar> | undefined>();
     const [filteredModels, setFilteredModels] = useState(mapOptions(carsModels?.models))
     
@@ -85,6 +88,16 @@ export const useOneCar = () => {
     }, [tempEditData])
 
 
+    // new images
+    const [newImages, setNewImages] = useState<File[]>([])
+
+    const onChangeNewImages = (e) => {
+        setNewImages([...e.target.files]);
+    }
+
+    const isDisabledSaveCarImages = !newImages.length;
+
+
     //handles------
     const handleEditCar = () => {
         editCar(tempEditData as ICarUpdateRequest).then(() => {
@@ -105,6 +118,29 @@ export const useOneCar = () => {
             });
     }
 
+    const handleDeleteCarImage = (imgId) => {
+        deleteCarImage(imgId)
+            .then(() => {
+                toast.success('Car photo deleted successfully');
+            })
+            .catch((error) => {
+                console.error('Failed to delete car photo:', error);
+                toast.error('Failed to delete car photo. Please try again.');
+            });
+    }
+
+    const handleUploadNewImages = (carId) => {
+        const formData = new FormData();
+        Array.from(newImages).forEach((file) => {
+          formData.append('images', file);
+        });
+    
+        uploadNewImages({ carId, formData })
+            .then(() => {
+                toast.success('New car photos was uploaded successfully!')
+            });
+      };
+
     const navigateToBuyForm = (id) => {
         if (isAuthenticated()) {
             navigate(ROUTES.buy_car.path + `/${id}`)
@@ -122,12 +158,16 @@ export const useOneCar = () => {
             isLoading,
             isAdmin,
             editOptions,
+            isDisabledSaveCarImages
         },
         commands: {
             navigateToBuyForm,
             handleDeleteCar,
             handleEditCar,
-            changeParam
+            handleDeleteCarImage,
+            changeParam,
+            onChangeNewImages,
+            handleUploadNewImages
         },
     };
 }
