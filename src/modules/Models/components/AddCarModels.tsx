@@ -71,7 +71,7 @@ export const AddCarModels: React.FC<AddCarModelsProps> = ({ models, handleAddMod
                 type="button"
                 className="mt-6 w-full focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
             >Add Brand</button>
-            <EditBrandsModal showModal={showModal} setShowModal={setShowModal} title="Add Brand" onSave={() => handleAddModel()} isDisabled={isDisabled}>
+            <EditBrandsModal showModal={showModal} setShowModal={setShowModal} title="Add Model" onSave={() => handleAddModel()} isDisabled={isDisabled}>
                 <div className="pb-5 group z-0 w-full">
                     <label htmlFor="underline_select" className="sr-only">Underline select</label>
                     <select

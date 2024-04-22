@@ -89,7 +89,7 @@ export const useEditModels = () => {
             isAddBrandDisabled: !addBrandName || addBrandName.length < 3,
             showAddModelModal,
             brandsOptions,
-            isAddModelDisabled: !addModelName || addModelName.length < 3 || !addModelSelectedBrand
+            isAddModelDisabled: !addModelName || addModelName.length < 2 || !addModelSelectedBrand
         },
         commands: {
             handleAddBrand,

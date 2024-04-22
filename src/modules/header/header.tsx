@@ -78,7 +78,11 @@ export const Header = () => {
           className={clsx(
             styles["header-menu"],
             "flex items-center justify-between h-full w-full md:bg-white dark:bg-dark-bg overflow-y-auto md:overflow-y-visible"
-          )}
+          , {
+            'max-w-6xl': isAdmin,
+            'max-w-5xl': !isAuthenticated(),
+            'max-w-5.5xl': isAuthenticated() && !isAdmin
+          })}
         >
           <ul
             className={clsx(
