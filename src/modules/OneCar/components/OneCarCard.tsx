@@ -11,6 +11,7 @@ import { EditCarModal } from "./EditCarModal";
 import { Icon } from "@/shared/UI/icon/icon";
 import { ICON_COLLECTION } from "@/shared/UI/icon/icon-list";
 import { EditCarImagesModal } from "./EditCarImagesModal";
+import { Loader } from "@/shared/UI/loader/loader";
 
 interface OneCarCardProps {
     car: ICar | undefined
@@ -26,10 +27,15 @@ interface OneCarCardProps {
     handleUploadNewImages: (carId: number) => void;
     isDisabledSaveCarImages: boolean
     isLoadingEditImage: boolean
+    isLoadingCars: boolean
 }
 
-export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAdmin, handleDeleteCar, handleDeleteCarImage, editOptions, onSaveEditedCar, changeParam, onChangeNewImages, handleUploadNewImages, isDisabledSaveCarImages, isLoadingEditImage }) => {
+export const OneCarCard: React.FC<OneCarCardProps> = ({ car, types, buyCar, isAdmin, handleDeleteCar, handleDeleteCarImage, editOptions, onSaveEditedCar, changeParam, onChangeNewImages, handleUploadNewImages, isDisabledSaveCarImages, isLoadingEditImage, isLoadingCars }) => {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    if(isLoadingCars){
+        return <Loader isFull/>
+    }
 
     return (
         <div className=" max-w-fit mx-auto">
