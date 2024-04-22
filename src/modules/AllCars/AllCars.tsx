@@ -13,7 +13,7 @@ export const AllCars = () => {
         <Layout>
             <section className="w-full dark:bg-dark-bg py-3 md:py-8">
                 <div className="w-full flex items-center gap-3 px-6 pb-6">
-                    <AllCarsFilters filtersData={models.filtersData} dropdownsOptions={models.dropdownsOptions} changeParam={commands.changeParam} onSaveFilters={commands.onSaveFilters} />
+                    <AllCarsFilters filtersData={models.filtersData} dropdownsOptions={models.dropdownsOptions} changeParam={commands.changeParam} onSaveFilters={commands.onSaveFilters}/>
                     <Dropdown
                         id="sort"
                         options={models.sortOptions}
@@ -23,7 +23,7 @@ export const AllCars = () => {
                     />
                     <ClearFilters onClearFilters={commands.clearFilters} />
                 </div>
-                <AllCarsList cars={models.cars} />
+                <AllCarsList cars={models.cars}  isLoading={models.isLoading}/>
             </section>
         </Layout>
     )

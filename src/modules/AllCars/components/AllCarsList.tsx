@@ -1,3 +1,4 @@
+import { Loader } from "@/shared/UI/loader/loader";
 import { ImageSlider } from "@/shared/UI/slider/slider";
 import { ROUTES } from "@/shared/constants/routes";
 import { AVAILABLE_TYPE, RESERVED_TYPE, SOLD_TYPE } from "@/shared/constants/types";
@@ -8,11 +9,18 @@ import React from "react";
 
 interface AllCarsListProps {
     cars: ICar[]
+    isLoading: boolean
 }
 
 export const AllCarsList: React.FC<AllCarsListProps> = ({
-    cars
+    cars,
+    isLoading
 }) => {
+
+    if(isLoading){
+        return <Loader isFull/>
+    }
+
     return (
         <div className="mx-auto px-4 py-8 sm:px-6 lg:px-8 border-t border-gray-700 dark:border-gray-200">
             <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 xl:gap-x-8">

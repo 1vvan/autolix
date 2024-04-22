@@ -23,7 +23,7 @@ export const AvailableCars = () => {
                     />
                     <ClearFilters onClearFilters={commands.clearFilters} />
                 </div>
-                <AvailableCarsList cars={models.availableCars} />
+                <AvailableCarsList cars={models.availableCars} isLoading={models.carsLoading}/>
             </section>
         </Layout>
     )
