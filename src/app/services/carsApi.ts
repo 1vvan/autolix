@@ -8,16 +8,18 @@ export const carsApi = api.injectEndpoints({
         url: `/autos-available`,
         params,
       }),
+      providesTags: result => ['Cars']
     }),
     getOneCar: builder.query<ICar, number | string | undefined>({
       query: (carId) => ({ url: `/autos/${carId}` }),
-      providesTags: result => ['OneCar']
+      providesTags: result => ['OneCar', 'Cars']
     }),
     getAllCars: builder.query<ICar[], IGetAllCarsRequest>({
       query: (params: IGetAllCarsRequest) => ({
         url: `/autos-all`,
         params,
       }),
+      providesTags: result => ['Cars']
     }),
     buyCar: builder.mutation<void, IBuyCarRequest>({
       query: (buyCarRequest) => ({
@@ -25,6 +27,7 @@ export const carsApi = api.injectEndpoints({
         method: 'POST',
         body: buyCarRequest,
       }),
+      invalidatesTags: ['Cars']
     }),
     addCar: builder.mutation<any, FormData>({
       query: (addCarRequest) => ({
@@ -32,12 +35,14 @@ export const carsApi = api.injectEndpoints({
         method: 'POST',
         body: addCarRequest,
       }),
+      invalidatesTags: ['Cars']
     }),
     deleteCar: builder.mutation<void, number>({
       query: (carId) => ({
         url: `/autos/${carId}/delete`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Cars']
     }),
     updateCar: builder.mutation<void, ICarUpdateRequest>({
       query: (updateCarRequest) => ({
@@ -45,7 +50,7 @@ export const carsApi = api.injectEndpoints({
         method: 'PUT',
         body: updateCarRequest,
       }),
-      invalidatesTags: ['OneCar']
+      invalidatesTags: ['OneCar', 'Cars']
     }),    
     addCarPhotos: builder.mutation<void, { carId: number, formData: FormData }>({
       query: ({ carId, formData }) => ({
@@ -53,14 +58,14 @@ export const carsApi = api.injectEndpoints({
         method: 'POST',
         body: formData,
       }),
-      invalidatesTags: ['OneCar']
+      invalidatesTags: ['OneCar', 'Cars']
     }),
     deleteCarImage: builder.mutation<void, number>({
       query: (imgId) => ({
         url: `/autos/images/${imgId}/delete`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['OneCar']
+      invalidatesTags: ['OneCar', 'Cars']
     }),
   }),
 });
