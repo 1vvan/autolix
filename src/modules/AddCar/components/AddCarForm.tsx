@@ -6,7 +6,7 @@ import { Oval } from "react-loader-spinner";
 
 export const AddCarForm = ({ disabledSelects, isLoading, handleAddCar, changeParam, handleFileChange, options, errors }) => {
     return (
-        <form className="max-w-md mx-auto py-6" action="#" method="POST" noValidate>
+        <form className="max-w-md mx-auto py-6 md:px-0 px-3" action="#" method="POST" noValidate>
             <div className="flex items-center justify-center relative mb-6">
                 <h6 className="text-black dark:text-white text-center text-3xl">Add Car</h6>
                 {isLoading &&

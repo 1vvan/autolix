@@ -9,7 +9,7 @@ export const EditModels = () => {
 
     return (
         <Layout>
-            <section className="w-full dark:bg-dark-bg py-3 md:py-8 px-4 md:px-16 flex justify-center gap-3">
+            <section className="w-full dark:bg-dark-bg py-3 md:py-8 px-4 md:px-16 flex justify-center gap-3 md:flex-row flex-col">
                 <AddCarBrand
                     brands={models.brands}
                     handleAddBrand={commands.handleAddBrand}

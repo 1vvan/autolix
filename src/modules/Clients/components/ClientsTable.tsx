@@ -21,7 +21,7 @@ export const ClientsTable: React.FC<ClientsTableProps> = ({clients, isLoading}) 
                 <tr className="bg-gray-400 dark:bg-gray-200">
                     <th className="px-4 py-2">ID</th>
                     <th className="px-4 py-2">Full Name</th>
-                    <th className="px-4 py-2">Phone</th>
+                    <th className="px-4 py-2" style={{minWidth: '160px'}}>Phone</th>
                     <th className="px-4 py-2">Email</th>
                     <th className="px-4 py-2">Address</th>
                     <th className="px-4 py-2">Created At</th>

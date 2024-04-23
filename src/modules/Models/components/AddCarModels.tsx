@@ -35,7 +35,7 @@ export const AddCarModels: React.FC<AddCarModelsProps> = ({ models, handleAddMod
     };
 
     return (
-        <div className=" w-1/3 pt-6 border p-4 rounded-lg border-gray-400 dark:border-gray-700">
+        <div className="w-full md:w-1/3 pt-6 border p-4 rounded-lg border-gray-400 dark:border-gray-700">
             <h6 className="text-gray-600 dark:text-gray-200 text-lg font-medium pb-6 text-center">Cars Models</h6>
             <table className="table-auto w-full border-collapse border border-gray-300 rounded-md overflow-hidden">
                 <thead>

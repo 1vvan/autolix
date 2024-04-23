@@ -33,7 +33,7 @@ export const AddCarBrand: React.FC<AddCarBrandProps> = ({ brands, handleAddBrand
     };
 
     return (
-        <div className="w-96 pt-6 border p-4 rounded-lg border-gray-400 dark:border-gray-700 h-full">
+        <div className="md:w-96 w-full pt-6 border p-4 rounded-lg border-gray-400 dark:border-gray-700 h-full">
             <h6 className="text-gray-600 dark:text-gray-200 text-lg font-medium pb-6 text-center">Cars Brands</h6>
             <table className="table-auto w-full border-collapse border border-gray-300 rounded-md overflow-hidden">
                 <thead>
