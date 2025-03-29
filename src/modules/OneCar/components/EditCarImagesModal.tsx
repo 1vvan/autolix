@@ -12,6 +12,7 @@ export const EditCarImagesModal = ({ title, car, handleDeleteCarImage, onChangeN
 
     const onSave = () => {
         handleUploadNewImages(car.id);
+        setShowModal(false);
     }
 
     return (
