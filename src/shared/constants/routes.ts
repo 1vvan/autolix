@@ -38,5 +38,13 @@ export const ROUTES = {
     user_purchases: {
         path: '/user-purchases',
         title: 'User Purchases'
-    }
+    },
+    admin_service: {
+        path: '/service-dashboard',
+        title: 'Service Dashboard'
+    },
+    client_service: {
+        path: '/service',
+        title: 'Service'
+    },
 }

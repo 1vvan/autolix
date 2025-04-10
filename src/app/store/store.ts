@@ -3,11 +3,13 @@ import userReducer from "./reducers/UserSlice";
 import typesReducer from "./reducers/TypesSlice";
 import carsReducer from "./reducers/CarsSlice";
 import { api } from "@/app/services/api";
+import bookingServicesReducer from "./reducers/BookingSlice";
 
 const rootReducer = combineReducers({
   userReducer,
   typesReducer,
   carsReducer,
+  bookingServicesReducer,
   [api.reducerPath]: api.reducer,
 });
 

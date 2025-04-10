@@ -6,7 +6,11 @@ export const userMenu = [
     {
         path: '/user-purchases',
         label: 'Your Purchases',
-    }
+    },
+    {
+        path: '/service',
+        label: 'Service',
+    },
 ]
 
 export const adminMenu = [
@@ -29,6 +33,10 @@ export const adminMenu = [
     {
         path: '/edit-models',
         label: 'Cars Models',
+    },
+    {
+        path: '/service-dashboard',
+        label: 'Service Dashboard',
     },
 ]
 

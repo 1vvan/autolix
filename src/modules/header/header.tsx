@@ -23,7 +23,7 @@ export const Header = () => {
   const isAdmin = useIsAdmin();
   const location = useLocation();
   const navigate = useNavigate();
-  const userHeader = (isAdmin ? adminMenu : (isAuthenticated() ? userMenu : userMenu.filter(item => item.path === ROUTES.cars.path)))
+  const userHeader = (isAdmin ? adminMenu : (isAuthenticated() ? userMenu : userMenu.filter(item => item.path === ROUTES.cars.path || item.path === ROUTES.client_service.path)))
   const handleNavigateToLogin = () => navigate(ROUTES.login.path);
 
   useEffect(() => {
