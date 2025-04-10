@@ -23,7 +23,21 @@ export const bookingApi = api.injectEndpoints({
     }),
     getClientAppointments: builder.query<IBooking[], string>({
       query: (phone) => ({ url: `/bookings/${phone}/appointments` }),
-    })    
+    }),
+    updateBookingDateTime: builder.mutation<any, { id: number, booking_date: string, booking_time: string }>({
+      query: ({ id, booking_date, booking_time }) => ({
+        url: `/bookings/${id}/date`,
+        method: 'PUT',
+        body: { booking_date, booking_time }
+      }),
+    }),
+    cancelBooking: builder.mutation<any, { id: number, comment: string }>({
+      query: ({ id, comment }) => ({
+        url: `/bookings/${id}/cancel`,
+        method: 'PUT',
+        body: { comment }
+      }),
+    }),
   }),
 });
 
@@ -31,5 +45,7 @@ export const {
   useGetAllBookingServicesQuery,
   useCreateBookingMutation,
   useGetBusyBookingSlotsQuery,
-  useGetClientAppointmentsQuery
+  useGetClientAppointmentsQuery,
+  useUpdateBookingDateTimeMutation,
+  useCancelBookingMutation
 } = bookingApi;
