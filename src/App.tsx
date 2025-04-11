@@ -23,6 +23,7 @@ import { AddCar } from './modules/AddCar/AddCar';
 import { EditModels } from './modules/Models/EditModels';
 import { modelsApi } from './app/services/modelsApi';
 import { ClientService } from './modules/Service/ClientService';
+import { ServiceDashboard } from './modules/ServiceDashboard/ServiceDashboard';
 
 const PrivateRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" />;
@@ -84,7 +85,7 @@ function App() {
           <Route path={ROUTES.login.path} element={<LoginPage />} />
           <Route path={ROUTES.register.path} element={<RegisterPage />} />
           <Route path={ROUTES.client_service.path} element={<ClientService />} />
-          <Route path={ROUTES.admin_service.path} element={<PrivateRoute><UserPurchases/></PrivateRoute>} />
+          <Route path={ROUTES.admin_service.path} element={<AdminRoute><ServiceDashboard/></AdminRoute>} />
         </Routes>
       </BrowserRouter>
   );

@@ -21,6 +21,9 @@ export const bookingApi = api.injectEndpoints({
         params: { date },
       }),
     }),
+    getAllAppointments: builder.query<IBooking[], void>({
+      query: () => ({ url: `/bookings` }),
+    }),
     getClientAppointments: builder.query<IBooking[], string>({
       query: (phone) => ({ url: `/bookings/${phone}/appointments` }),
     }),
@@ -45,6 +48,7 @@ export const {
   useGetAllBookingServicesQuery,
   useCreateBookingMutation,
   useGetBusyBookingSlotsQuery,
+  useGetAllAppointmentsQuery,
   useGetClientAppointmentsQuery,
   useUpdateBookingDateTimeMutation,
   useCancelBookingMutation

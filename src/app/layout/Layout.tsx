@@ -24,7 +24,7 @@ export const Layout: React.FC<React.PropsWithChildren> = ({
           theme="light"
         />
         <Header/>
-        <div className="pt-20 md:pt-16 wrapper w-full bg-main-mobile md:bg-main bg-cover bg-no-repeat dark:bg-dark-bg relative" style={{ minHeight: "100vh" }}>
+        <div className="pt-20 md:pt-16 wrapper w-full bg-main-mobile md:bg-main bg-cover bg-no-repeat dark:bg-dark-bg relative overflow-y-auto" style={{ minHeight: "100vh" }}>
             {children}
         </div>
     </>
