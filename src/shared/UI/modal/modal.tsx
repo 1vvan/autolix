@@ -6,13 +6,14 @@ interface ModalProps {
   showModal: boolean;
   setShowModal: (boolean) => void;
   title: string;
-  onSave: (any) => void;
+  onSave?: (any) => void;
   bodyClassNames: string;
   isDisabledSave?: boolean; 
-  isLoading?: boolean
+  isLoading?: boolean;
+  isShowSave?: boolean;
 }
 
-export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ showModal, setShowModal, title, children, onSave, bodyClassNames, isDisabledSave, isLoading }) => {
+export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ showModal, setShowModal, title, children, onSave = () => {}, bodyClassNames, isDisabledSave, isLoading, isShowSave = true }) => {
   return (
     <>
       {showModal ? (
@@ -31,24 +32,26 @@ export const Modal: React.FC<React.PropsWithChildren<ModalProps>> = ({ showModal
                 <div className={clsx("relative p-6", bodyClassNames)}>
                   {children}
                 </div>
-                <div className="flex items-center justify-end px-6 py-2 border-t border-solid border-gray-200 dark:border-gray-700 rounded-b">
+                <div className="flex items-center justify-end gap-4 px-6 py-2 border-t border-solid border-gray-200 dark:border-gray-700 rounded-b">
                   <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="text-red-500 background-transparent font-bold uppercase py-2 text-sm outline-none focus:outline-none mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
                     Close
                   </button>
-                  <button
-                    className={clsx("bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150", {
-                      'opacity-50': isDisabledSave
-                    })}
-                    disabled={isDisabledSave}
-                    type="button"
-                    onClick={onSave}
-                  >
-                    Save
-                  </button>
+                  {isShowSave && (
+                    <button
+                      className={clsx("bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mb-1 ease-linear transition-all duration-150", {
+                        'opacity-50': isDisabledSave
+                      })}
+                      disabled={isDisabledSave}
+                      type="button"
+                      onClick={onSave}
+                    >
+                      Save
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

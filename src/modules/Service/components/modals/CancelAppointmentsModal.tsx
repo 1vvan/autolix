@@ -17,6 +17,7 @@ export const CancelAppointmentsModal = ({ title, booking, handleCancelAppt, isLo
     return (
         <>
             <button
+            className="ml-2"
                 onClick={() => setShowModal(!showModal)}
             >
                 <Icon

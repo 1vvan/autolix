@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 import { EditBookingDateModal } from '../modals/EditBookingDateModal';
 import { CancelAppointmentsModal } from '../modals/CancelAppointmentsModal';
 import { BOOK_CANCELLED_BY_CLIENT_STATUS_ID } from '@/shared/constants/types';
+import { ViewReceiptModal } from '../modals/ViewReceiptModal';
 
 const ClientAppointments = () => {
     const {models, commands} = useClientAppoitnments();
@@ -53,6 +54,10 @@ const ClientAppointments = () => {
                                 </td>
                                 <td className="px-4 py-2 text-center">{item.status_name}</td>
                                 <td className="px-4 py-2 text-center">
+                                    <ViewReceiptModal
+                                        booking={item}
+                                    />
+
                                     {item.status_id !== BOOK_CANCELLED_BY_CLIENT_STATUS_ID && (
                                         <CancelAppointmentsModal
                                             title={'Cancel appointment'}

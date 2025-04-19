@@ -4,6 +4,7 @@ import { ReactComponent as Cross } from "@icons/x.svg";
 import { ReactComponent as Edit } from "@icons/edit.svg";
 import { ReactComponent as Trash } from "@icons/trash.svg";
 import { ReactComponent as Image } from "@icons/image.svg";
+import { ReactComponent as Receipt } from "@icons/receipt.svg";
 
 
 export const ICON_COLLECTION = {
@@ -12,7 +13,8 @@ export const ICON_COLLECTION = {
   cross: Cross,
   edit: Edit,
   trash: Trash,
-  image: Image
+  image: Image,
+  receipt: Receipt
 };
 
 type Keys = keyof typeof ICON_COLLECTION;
