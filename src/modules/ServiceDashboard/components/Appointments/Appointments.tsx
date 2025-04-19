@@ -1,6 +1,9 @@
 import React from 'react';
 import { useAppoitnments } from './useAppointments';
 import Moment from 'react-moment';
+import { CompleteAppointmentsModal } from '../modals/CompleteAppointmentModal';
+import { BOOK_PENDING_STATUS_ID } from '@/shared/constants/types';
+import { CancelApptByManagerModal } from '../modals/CancelApptByManagerModal';
 
 const Appointments = () => {
     const {models, commands} = useAppoitnments();
@@ -34,52 +37,73 @@ const Appointments = () => {
                                 <td className="px-4 py-2 text-center text-balance">
                                     {item.services?.map(service => service.name).join(', ')}
                                 </td>
-                                <td className="px-4 py-2 text-center flex gap-2 justify-between">
-                                    <div className='flex flex-col gap-2'>
+                                <td className="px-4 py-2 flex gap-2 justify-center">
+                                    <div className='flex flex-col items-center gap-2'>
                                         <Moment date={item.booking_date} format="dddd YYYY-MM-DD" /> {item.booking_time}
                                     </div>
                                 </td>
                                 <td className="px-4 py-2 text-center">{item.status_name}</td>
                                 <td className="px-4 py-2 text-center">
-                                    
+                                    {item.status_id === BOOK_PENDING_STATUS_ID ? (
+                                        <>
+                                            <CancelApptByManagerModal
+                                                title={'Cancel appointment'}
+                                                booking={item}
+                                                handleCancel={commands.handleCancelByManager}
+                                                handleClientDidNotCome={commands.handleClientDidNotCome}
+                                            />
+                                            <CompleteAppointmentsModal
+                                                title={'Complete appointment'}
+                                                booking={item}
+                                                handleCompleteAppt={commands.handleCompleteAppt}
+                                                isLoading={models.isLoadingCompleteBooking}
+                                            />
+                                        </>
+                                    ) : '-'}
                                 </td>
                             </tr>
 
                             {item.comments && (
-                                <tr key={`comments-${item.id}`} className="border-b border-gray-300 text-gray-600 dark:text-gray-200 bg-gray-200 dark:bg-transparent w-full">
-                                    <td colSpan={3} className="px-4 py-2 text-left text-gray-600 w-full">
-                                        {item.comments.filter(comment => comment.comment_type === 'client').length > 0 && (
-                                            <>
-                                                <strong className='mb-2 inline-block'>Client Comments:</strong>
-                                                <ul>
-                                                    {item.comments.filter(comment => comment.comment_type === 'client').map(comment => (
-                                                        <li key={comment.id} className="text-gray-600 dark:text-gray-200">
-                                                            {comment.comment} <br />
-                                                            <span className="text-xs text-gray-500">{new Date(comment.created_at).toLocaleString()}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </>
-                                        )}
-                                    </td>
-                                    <td colSpan={4} className="px-4 py-2 text-left text-gray-600">
-                                        {item.comments.filter(comment => comment.comment_type === 'manager').length > 0 && (
-                                            <>
-                                                <strong className='mb-2 inline-block'>Manager Comments:</strong>
-                                                <ul>
-                                                    {item.comments.filter(comment => comment.comment_type === 'manager').map(comment => (
-                                                        <li key={comment.id} className="text-gray-600 dark:text-gray-200">
-                                                            {comment.comment} <br />
-                                                            <span className="text-xs text-gray-500">{new Date(comment.created_at).toLocaleString()}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </>
-                                        )}
+                                <tr key={`comments-${item.id}`} className="border-b border-gray-300 text-gray-600 dark:text-gray-200 bg-gray-200 dark:bg-transparent">
+                                    <td colSpan={8}>
+                                        <div className="flex w-full border-b border-gray-300">
+                                            <div className="w-1/2 px-4 py-2">
+                                                {item.comments.filter(comment => comment.comment_type === 'client').length > 0 && (
+                                                    <>
+                                                        <strong className="mb-2 inline-block">Client Comments:</strong>
+                                                        <ul className="space-y-2">
+                                                            {item.comments.filter(comment => comment.comment_type === 'client').map(comment => (
+                                                                <li key={comment.id} className="text-gray-600 dark:text-gray-200">
+                                                                    {comment.comment} <br />
+                                                                    <span className="text-xs text-gray-500">{new Date(comment.created_at).toLocaleString()}</span>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </>
+                                                )}
+                                            </div>
+
+                                            <div className="w-px bg-gray-300 dark:bg-gray-200 mx-2" />
+
+                                            <div className="w-1/2 px-4 py-2">
+                                                {item.comments.filter(comment => comment.comment_type === 'manager').length > 0 && (
+                                                    <>
+                                                        <strong className="mb-2 inline-block">Manager Comments:</strong>
+                                                        <ul className="space-y-2">
+                                                            {item.comments.filter(comment => comment.comment_type === 'manager').map(comment => (
+                                                                <li key={comment.id} className="text-gray-600 dark:text-gray-200">
+                                                                    {comment.comment} <br />
+                                                                    <span className="text-xs text-gray-500">{new Date(comment.created_at).toLocaleString()}</span>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             )}
-
                         </>
                     ))}
                 </tbody>

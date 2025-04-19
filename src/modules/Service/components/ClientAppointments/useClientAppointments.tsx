@@ -1,5 +1,6 @@
 import { bookingApi } from "@/app/services/bookingApi";
 import { toast } from "react-toastify";
+import { BOOK_CANCELLED_BY_CLIENT_STATUS_ID } from '@/shared/constants/types';
 
 export const useClientAppoitnments = () => {
     const phone = localStorage.getItem('userPhone');
@@ -9,7 +10,7 @@ export const useClientAppoitnments = () => {
         : { data: [], isLoading: false, refetch: () => console.log('refetch') };
 
     const [updateBookingDate, {isLoading: isLoadingUpdateBookingDate}] = bookingApi.useUpdateBookingDateTimeMutation();
-    const [cancelBooking, {isLoading: isLoadingCancelBooking}] = bookingApi.useCancelBookingMutation();
+    const [updateBookStatus, {isLoading: isLoadingCancelBooking}] = bookingApi.useUpdateBookingStatusMutation();
 
     const handleEditBookDate = async (bookingId: number, newDate: Date | null) => {
         if (!newDate) return;
@@ -32,9 +33,10 @@ export const useClientAppoitnments = () => {
     };
 
     const handleCancelAppt = async (bookingId: number, comment: string) => {
-        await cancelBooking({
+        await updateBookStatus({
             id: bookingId, 
-            comment
+            comment,
+            status_id: BOOK_CANCELLED_BY_CLIENT_STATUS_ID
         }).then(() => {
             toast.success("Appointment cancelled successfully");
             refetch();

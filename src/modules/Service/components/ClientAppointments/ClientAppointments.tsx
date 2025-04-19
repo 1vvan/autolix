@@ -4,7 +4,7 @@ import { useClientAppoitnments } from './useClientAppointments';
 import Moment from 'react-moment';
 import { EditBookingDateModal } from '../modals/EditBookingDateModal';
 import { CancelAppointmentsModal } from '../modals/CancelAppointmentsModal';
-import { BOOK_CANCELLED_BY_CLIENT_STATUS_ID } from '@/shared/constants/types';
+import { BOOK_PENDING_STATUS_ID } from '@/shared/constants/types';
 import { ViewReceiptModal } from '../modals/ViewReceiptModal';
 
 const ClientAppointments = () => {
@@ -43,7 +43,7 @@ const ClientAppointments = () => {
                                     <div className='flex flex-col gap-2'>
                                         <Moment date={item.booking_date} format="dddd YYYY-MM-DD" /> {item.booking_time}
                                     </div>
-                                    {item.status_id !== BOOK_CANCELLED_BY_CLIENT_STATUS_ID && (
+                                    {item.status_id === BOOK_PENDING_STATUS_ID && (
                                         <EditBookingDateModal 
                                             title={'Rescshedule appointment'} 
                                             booking={item} 
@@ -58,7 +58,7 @@ const ClientAppointments = () => {
                                         booking={item}
                                     />
 
-                                    {item.status_id !== BOOK_CANCELLED_BY_CLIENT_STATUS_ID && (
+                                    {item.status_id === BOOK_PENDING_STATUS_ID && (
                                         <CancelAppointmentsModal
                                             title={'Cancel appointment'}
                                             booking={item}
@@ -71,39 +71,45 @@ const ClientAppointments = () => {
 
                             {item.comments && (
                                 <tr key={`comments-${item.id}`} className="border-b border-gray-300 text-gray-600 dark:text-gray-200 bg-gray-200 dark:bg-transparent">
-                                    <td colSpan={3} className="px-4 py-2 text-left text-gray-600">
-                                        {item.comments.filter(comment => comment.comment_type === 'client').length > 0 && (
-                                            <>
-                                                <strong className='mb-2 inline-block'>Client Comments:</strong>
-                                                <ul>
-                                                    {item.comments.filter(comment => comment.comment_type === 'client').map(comment => (
-                                                        <li key={comment.id} className="text-gray-600 dark:text-gray-200">
-                                                            {comment.comment} <br />
-                                                            <span className="text-xs text-gray-500">{new Date(comment.created_at).toLocaleString()}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </>
-                                        )}
-                                    </td>
-                                    <td colSpan={4} className="px-4 py-2 text-left text-gray-600">
-                                        {item.comments.filter(comment => comment.comment_type === 'manager').length > 0 && (
-                                            <>
-                                                <strong className='mb-2 inline-block'>Manager Comments:</strong>
-                                                <ul>
-                                                    {item.comments.filter(comment => comment.comment_type === 'manager').map(comment => (
-                                                        <li key={comment.id} className="text-gray-600 dark:text-gray-200">
-                                                            {comment.comment} <br />
-                                                            <span className="text-xs text-gray-500">{new Date(comment.created_at).toLocaleString()}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </>
-                                        )}
+                                    <td colSpan={8}>
+                                        <div className="flex w-full border-b border-gray-300">
+                                            <div className="w-1/2 px-4 py-2">
+                                                {item.comments.filter(comment => comment.comment_type === 'client').length > 0 && (
+                                                    <>
+                                                        <strong className="mb-2 inline-block">Client Comments:</strong>
+                                                        <ul className="space-y-2">
+                                                            {item.comments.filter(comment => comment.comment_type === 'client').map(comment => (
+                                                                <li key={comment.id} className="text-gray-600 dark:text-gray-200">
+                                                                    {comment.comment} <br />
+                                                                    <span className="text-xs text-gray-500">{new Date(comment.created_at).toLocaleString()}</span>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </>
+                                                )}
+                                            </div>
+
+                                            <div className="w-px bg-gray-300 dark:bg-gray-200 mx-2" />
+
+                                            <div className="w-1/2 px-4 py-2">
+                                                {item.comments.filter(comment => comment.comment_type === 'manager').length > 0 && (
+                                                    <>
+                                                        <strong className="mb-2 inline-block">Manager Comments:</strong>
+                                                        <ul className="space-y-2">
+                                                            {item.comments.filter(comment => comment.comment_type === 'manager').map(comment => (
+                                                                <li key={comment.id} className="text-gray-600 dark:text-gray-200">
+                                                                    {comment.comment} <br />
+                                                                    <span className="text-xs text-gray-500">{new Date(comment.created_at).toLocaleString()}</span>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             )}
-
                         </>
                     ))}
                 </tbody>

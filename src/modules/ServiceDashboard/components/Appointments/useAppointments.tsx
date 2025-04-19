@@ -1,11 +1,12 @@
 import { bookingApi } from "@/app/services/bookingApi";
+import { BOOK_CANCELLED_BY_MANAGER_STATUS_ID, BOOK_CLIENT_DO_NOT_COME_STATUS_ID, BOOK_DONE_STATUS_ID } from "@/shared/constants/types";
 import { toast } from "react-toastify";
 
 export const useAppoitnments = () => {
     const { data: appointments, isLoading, refetch } = bookingApi.useGetAllAppointmentsQuery();
 
     const [updateBookingDate, {isLoading: isLoadingUpdateBookingDate}] = bookingApi.useUpdateBookingDateTimeMutation();
-    const [cancelBooking, {isLoading: isLoadingCancelBooking}] = bookingApi.useCancelBookingMutation();
+    const [updateBookStatus, {isLoading: isLoadingCompleteBooking}] = bookingApi.useUpdateBookingStatusMutation();
 
     const handleEditBookDate = async (bookingId: number, newDate: Date | null) => {
         if (!newDate) return;
@@ -27,26 +28,48 @@ export const useAppoitnments = () => {
         }
     };
 
-    const handleCancelAppt = async (bookingId: number, comment: string) => {
-        await cancelBooking({
+    const handleCompleteAppt = async (bookingId: number, comment: string) => {
+        await updateBookStatus({
             id: bookingId, 
-            comment
+            comment,
+            status_id: BOOK_DONE_STATUS_ID
         }).then(() => {
-            toast.success("Appointment cancelled successfully");
+            toast.success("Appointment completed successfully");
             refetch();
         })
+    };
+
+    const handleClientDidNotCome = (bookingId: number, comment: string) => {
+        cancelAppt(bookingId, comment, BOOK_CLIENT_DO_NOT_COME_STATUS_ID);
     }
+
+    const handleCancelByManager = (bookingId: number, comment: string) => {
+        cancelAppt(bookingId, comment, BOOK_CANCELLED_BY_MANAGER_STATUS_ID);
+    }
+
+    const cancelAppt = async (bookingId: number, comment: string, status_id: number) => {
+        await updateBookStatus({
+            id: bookingId, 
+            comment,
+            status_id
+        }).then(() => {
+            toast.success("Appointment completed successfully");
+            refetch();
+        })
+    };
 
     return {
         models: {
             appointments,
             isLoading,
             isLoadingUpdateBookingDate,
-            isLoadingCancelBooking
+            isLoadingCompleteBooking
         },
         commands: {
             handleEditBookDate,
-            handleCancelAppt
+            handleCompleteAppt,
+            handleCancelByManager,
+            handleClientDidNotCome
         },
       };
 }

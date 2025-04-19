@@ -34,13 +34,13 @@ export const bookingApi = api.injectEndpoints({
         body: { booking_date, booking_time }
       }),
     }),
-    cancelBooking: builder.mutation<any, { id: number, comment: string }>({
-      query: ({ id, comment }) => ({
-        url: `/bookings/${id}/cancel`,
-        method: 'PUT',
-        body: { comment }
+    updateBookingStatus: builder.mutation<any, { id: number, status_id: number, comment?: string }>({
+      query: ({ id, status_id, comment }) => ({
+        url: `/bookings/${id}/status`,
+        method: 'PATCH',
+        body: { status_id, comment }
       }),
-    }),
+    }),    
   }),
 });
 
@@ -51,5 +51,5 @@ export const {
   useGetAllAppointmentsQuery,
   useGetClientAppointmentsQuery,
   useUpdateBookingDateTimeMutation,
-  useCancelBookingMutation
+  useUpdateBookingStatusMutation
 } = bookingApi;

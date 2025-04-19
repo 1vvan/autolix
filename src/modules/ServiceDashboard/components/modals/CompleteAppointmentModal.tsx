@@ -3,20 +3,14 @@ import { ICON_COLLECTION } from "@/shared/UI/icon/icon-list";
 import { Modal } from "@/shared/UI/modal/modal";
 import { useTheme } from "@/shared/theme-context/theme-context";
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 
-export const CancelAppointmentsModal = ({ title, booking, handleCancelAppt, isLoading }) => {
+export const CompleteAppointmentsModal = ({ title, booking, handleCompleteAppt, isLoading }) => {
     const [showModal, setShowModal] = useState(false);
     const [comment, setComment] = useState<string>('');
-    const { theme } = useTheme()
+    const { theme } = useTheme();
 
     const onSave = () => {
-        if (!comment) {
-            toast.error('Reason is required!')
-            return;
-        }
-
-        handleCancelAppt(booking.id, comment);
+        handleCompleteAppt(booking.id, comment);
         setShowModal(false);
     }
 
@@ -27,7 +21,7 @@ export const CancelAppointmentsModal = ({ title, booking, handleCancelAppt, isLo
                 onClick={() => setShowModal(!showModal)}
             >
                 <Icon
-                    icon={ICON_COLLECTION.cross}
+                    icon={ICON_COLLECTION.check}
                     iconSize={'18px'}
                     iconColor={theme === "dark" ? "#fff" : "#000"}
                 />
@@ -44,7 +38,7 @@ export const CancelAppointmentsModal = ({ title, booking, handleCancelAppt, isLo
                     />
                     <label
                         className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 left-0 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-violet-500 peer-focus:dark:text-violet-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                    >Cancellation Reason</label>
+                    >Comment</label>
                 </div>
             </Modal>
         </>
