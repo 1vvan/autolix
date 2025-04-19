@@ -152,6 +152,19 @@ const BookingForm = () => {
                 >Comment</label>
             </div>
 
+            {models.servicePrices && models.totalPrice && (
+                <div className='flex flex-col gap-2 mb-5'>
+                    {models.servicePrices.map(service => (
+                        <div key={service.id} className='dark:text-white'>
+                            {service.name}: ${service.finalPrice}
+                        </div>
+                    ))}
+
+                    <strong className='dark:text-white'>Total price: ${models.totalPrice}</strong>
+                </div>
+            )}
+
+
             <button
                 type="submit"
                 onClick={commands.handleCreateBooking}

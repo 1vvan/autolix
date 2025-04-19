@@ -1,6 +1,7 @@
 export interface IBookingService {
   id: number;
   name: string;
+  base_price: string;
 }
 
 export interface IBookBusySlot {

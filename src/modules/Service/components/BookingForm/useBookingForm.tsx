@@ -1,6 +1,7 @@
 import { bookingApi, useCreateBookingMutation } from "@/app/services/bookingApi";
 import { selectAllCarsModels } from "@/app/store/reducers/CarsSlice";
 import { selectFuelTypes } from "@/app/store/reducers/TypesSlice";
+import { calculateServicePrice } from "@/shared/helpers/calculateHelpers";
 import { mapOptions } from "@/shared/helpers/mapDropdownOptions";
 import { createBookSchema } from "@/shared/schemas/createBookSchema";
 import { useMemo, useState } from "react";
@@ -15,7 +16,7 @@ const initBookData = {
     fuel_id: null,
     comment: "",
     bookingDateTime: null as Date | null,
-    services: []
+    services: [] as number[]
 }
 
 const initBookErrors = {
@@ -138,6 +139,30 @@ export const useBookingForm = () => {
     
     const excludeTimes = getExcludeTimes(bookingBusySlots);
 
+    const servicePrices = useMemo(() => {
+        if (!bookingServices || !bookingData.car_year) return [];
+    
+        return bookingServices
+            .filter(service => bookingData.services.includes(service.id))
+            .map(service => {
+                const finalPrice = calculateServicePrice(parseFloat(service.base_price), bookingData.car_year || 0);
+                return {
+                    id: service.id,
+                    name: service.name,
+                    basePrice: parseFloat(service.base_price),
+                    finalPrice
+                };
+            });
+    }, [bookingServices, bookingData.services, bookingData.car_year]);
+
+    const totalPrice = useMemo(() => {
+        if (!bookingServices || !bookingData.car_year) return null;
+
+        return servicePrices.reduce((acc, curr) => acc + curr.finalPrice, 0);
+    }, [servicePrices, bookingServices, bookingData]);    
+    console.log(servicePrices, totalPrice);
+    
+
     return {
         models: {
             excludeTimes,
@@ -149,7 +174,9 @@ export const useBookingForm = () => {
             fuelOptions,
             selectedCarBrand,
             servicesOptions,
-            isLoading
+            isLoading,
+            servicePrices,
+            totalPrice
         },
         commands: {
             changeParam,
