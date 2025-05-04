@@ -8,7 +8,7 @@ export const useAppoitnments = () => {
     const [updateBookingDate, {isLoading: isLoadingUpdateBookingDate}] = bookingApi.useUpdateBookingDateTimeMutation();
     const [updateBookStatus, {isLoading: isLoadingCompleteBooking}] = bookingApi.useUpdateBookingStatusMutation();
 
-    const handleEditBookDate = async (bookingId: number, newDate: Date | null) => {
+    const handleEditBookDate = async (bookingId: number, newDate: Date | null, comment: string) => {
         if (!newDate) return;
 
         const datePart = newDate.toISOString().slice(0, 10);
@@ -19,6 +19,7 @@ export const useAppoitnments = () => {
                 id: bookingId,
                 booking_date: datePart,
                 booking_time: timePart,
+                managerComment: comment
             }).unwrap().then(() => {
                 toast.success("Appointment date updated successfully");
                 refetch();
@@ -69,7 +70,8 @@ export const useAppoitnments = () => {
             handleEditBookDate,
             handleCompleteAppt,
             handleCancelByManager,
-            handleClientDidNotCome
+            handleClientDidNotCome,
+            refetchAppts: refetch
         },
       };
 }

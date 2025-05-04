@@ -30,6 +30,7 @@ const BookingForm = () => {
                 <InputMask
                     mask="+999 99 999 9999"
                     onChange={(e) => commands.changeParam('phone', e.target.value)}
+                    value={models.bookingData.phone} 
                     className={clsx("block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-violet-500 focus:outline-none focus:ring-0 focus:border-violet-500 peer", {
                         'border-red-500 dark:border-red-500': !!models.bookErrors['phone'],
                     })}
@@ -84,6 +85,7 @@ const BookingForm = () => {
             <div className="relative z-0 w-full pb-5 group">
                 <input
                     onChange={(e) => commands.changeParam('engine_capacity', parseInt(e.target.value))}
+                    value={models.bookingData.engine_capacity} 
                     type='string'
                     className={clsx("block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-violet-500 focus:outline-none focus:ring-0 focus:border-violet-500 peer", {
                         'border-red-500 dark:border-red-500': !!models.bookErrors['engine_capacity'],
@@ -139,6 +141,7 @@ const BookingForm = () => {
             <div className="relative z-0 w-full pb-5 group">
                 <textarea
                     onChange={(e) => commands.changeParam('comment', e.target.value)}
+                    value={models.bookingData.comment} 
                     className={clsx("resize-none block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-violet-500 focus:outline-none focus:ring-0 focus:border-violet-500 peer", {
                         'border-red-500 dark:border-red-500': !!models.bookErrors['comment'],
                     })}

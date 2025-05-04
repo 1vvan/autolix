@@ -4,6 +4,8 @@ import Moment from 'react-moment';
 import { CompleteAppointmentsModal } from '../modals/CompleteAppointmentModal';
 import { BOOK_PENDING_STATUS_ID } from '@/shared/constants/types';
 import { CancelApptByManagerModal } from '../modals/CancelApptByManagerModal';
+import { EditApptModal } from '../modals/EditApptModal';
+import { EditBookingDateModal } from '@/modules/Service/components/modals/EditBookingDateModal';
 
 const Appointments = () => {
     const {models, commands} = useAppoitnments();
@@ -41,6 +43,15 @@ const Appointments = () => {
                                     <div className='flex flex-col items-center gap-2'>
                                         <Moment date={item.booking_date} format="dddd YYYY-MM-DD" /> {item.booking_time}
                                     </div>
+                                    {item.status_id === BOOK_PENDING_STATUS_ID && (
+                                        <EditBookingDateModal
+                                            title={'Rescshedule appointment'} 
+                                            booking={item} 
+                                            handleChangeDate={commands.handleEditBookDate} 
+                                            isLoading={models.isLoadingUpdateBookingDate}
+                                            withComment
+                                        />
+                                    )}
                                 </td>
                                 <td className="px-4 py-2 text-center">{item.status_name}</td>
                                 <td className="px-4 py-2 text-center">
@@ -58,6 +69,7 @@ const Appointments = () => {
                                                 handleCompleteAppt={commands.handleCompleteAppt}
                                                 isLoading={models.isLoadingCompleteBooking}
                                             />
+                                            <EditApptModal booking={item} refetchAppts={commands.refetchAppts}/>
                                         </>
                                     ) : '-'}
                                 </td>

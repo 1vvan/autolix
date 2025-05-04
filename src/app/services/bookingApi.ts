@@ -13,8 +13,14 @@ export const bookingApi = api.injectEndpoints({
         method: 'POST',
         body: payload,
       }),
-      invalidatesTags: ['Cars']
     }),
+    updateBooking: builder.mutation<any, { id: number; data: any }>({
+      query: ({ id, data }) => ({
+        url: `/bookings/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+    }),    
     getBusyBookingSlots: builder.query<IBookBusySlot[], string>({
       query: (date) => ({
         url: `/bookings/busy-slots`,
@@ -27,11 +33,11 @@ export const bookingApi = api.injectEndpoints({
     getClientAppointments: builder.query<IBooking[], string>({
       query: (phone) => ({ url: `/bookings/${phone}/appointments` }),
     }),
-    updateBookingDateTime: builder.mutation<any, { id: number, booking_date: string, booking_time: string }>({
-      query: ({ id, booking_date, booking_time }) => ({
+    updateBookingDateTime: builder.mutation<any, { id: number, booking_date: string, booking_time: string, managerComment?: string }>({
+      query: ({ id, booking_date, booking_time, managerComment }) => ({
         url: `/bookings/${id}/date`,
         method: 'PUT',
-        body: { booking_date, booking_time }
+        body: { booking_date, booking_time, managerComment }
       }),
     }),
     updateBookingStatus: builder.mutation<any, { id: number, status_id: number, comment?: string }>({
@@ -47,6 +53,7 @@ export const bookingApi = api.injectEndpoints({
 export const {
   useGetAllBookingServicesQuery,
   useCreateBookingMutation,
+  useUpdateBookingMutation,
   useGetBusyBookingSlotsQuery,
   useGetAllAppointmentsQuery,
   useGetClientAppointmentsQuery,

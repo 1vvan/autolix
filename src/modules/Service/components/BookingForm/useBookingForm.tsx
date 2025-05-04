@@ -4,7 +4,7 @@ import { selectFuelTypes } from "@/app/store/reducers/TypesSlice";
 import { calculateServicePrice } from "@/shared/helpers/calculateHelpers";
 import { mapOptions } from "@/shared/helpers/mapDropdownOptions";
 import { createBookSchema } from "@/shared/schemas/createBookSchema";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -49,6 +49,12 @@ export const useBookingForm = () => {
     const changeSelectedCarBrand = (key, value) => {
         setSelectedCarBrand(value);
     }
+
+    useEffect(() => {
+        if (localStorage.getItem('userPhone')) {
+            bookingData.phone = localStorage.getItem('userPhone') || '';
+        }
+    })
 
     const changeParam = (key, value) => {
         setBookingData(prevState => ({
@@ -160,8 +166,6 @@ export const useBookingForm = () => {
 
         return servicePrices.reduce((acc, curr) => acc + curr.finalPrice, 0);
     }, [servicePrices, bookingServices, bookingData]);    
-    console.log(servicePrices, totalPrice);
-    
 
     return {
         models: {

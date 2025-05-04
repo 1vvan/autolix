@@ -86,6 +86,7 @@ export const DROPDOWN_STYLE_CONFIG_FORM = (darked, error = false) => {
             ...base,
             paddingLeft: 0,
             color: darked ? "#9ca3af" : "#000",
+            textAlign: 'left'
         }),
         valueContainer: (base, state) => ({
             ...base,
@@ -93,6 +94,7 @@ export const DROPDOWN_STYLE_CONFIG_FORM = (darked, error = false) => {
             paddingTop: 0,
             paddingBottom: 0,
             paddingLeft: 0,
+            textAlign: 'left'
         }),
         input: (base) => ({
             ...base,
@@ -152,6 +154,7 @@ export const DROPDOWN_STYLE_CONFIG_FORM = (darked, error = false) => {
             whiteSpace: "nowrap",
             overflow: "hidden",
             color: darked ? "#9ca3af" : "#000",
+            textAlign: 'left'
         }),
     };
 }
